@@ -25,9 +25,9 @@ public class SpiderInfoController {
 			@RequestParam("starttimeCSS") String starttimeCSS, @RequestParam("starttimeXpath") String starttimeXpath) {
 		if (UrlParser.setUrlListConfiguration(source, liUrl, cssSeletor, xpath, titleCSS, titleXpath, contentCSS,
 				contentXpath, starttimeCSS, starttimeXpath)) {
-			return "changeSuccess";
+			return "spider/changeSuccess";
 		}
-		return "changeFaild";
+		return "spider/changeFaild";
 	}
 
 	// 修改一個任務
@@ -71,12 +71,12 @@ public class SpiderInfoController {
 			sql = "UPDATE spidertaskinfo set contentXpath='" + starttimeXpath + "' WHERE taskId='" + taskId + "';";
 		}
 		if (ConfigurationController.changeTaskInfo(sql)) {
-			return "changeSuccess";
+			return "spider/changeSuccess";
 		}
-		return "changeFaild";
+		return "spider/changeFaild";
 	}
 
-	// 獲得預覽
+	// 删除任务
 	@RequestMapping(value = "/delTask", method = RequestMethod.GET)
 	public String delTask(@RequestParam("taskId") String taskId) {
 		ConfigurationController.delTaskInfo(taskId);
@@ -99,7 +99,7 @@ public class SpiderInfoController {
 		model.addAttribute("starttimeXpath", info.get("starttimeXpath"));
 		model.addAttribute("nextTime", info.get("nextTime"));
 		model.addAttribute("taskId", taskId);
-		return "SpiderTaskDetail";
+		return "spider/SpiderTaskDetail";
 	}
 
 	// 獲得預覽
@@ -107,7 +107,27 @@ public class SpiderInfoController {
 	public String getPageCode(@RequestParam("url") String url, @RequestParam("cssSeletor") String cssSeletor,
 			@RequestParam("xpath") String xpath, Model model) {
 		model.addAttribute("view", ViewPaperProcessor.getViewContent(url, cssSeletor, xpath));
-		return "view";
+		return "spider/view";
 	}
 
+	// 获得已爬取的文章列表
+	@RequestMapping(value = "/getSpiderArticle", method = RequestMethod.GET)
+	public String getSpiderArticle(@RequestParam("source") String source, Model model) {
+		model.addAttribute("articles", ConfigurationController.getSpiderArticle(source));
+		return "spider/articleList";
+	}
+
+	// 获取文章内容
+	@RequestMapping(value = "/getArticleInfo", method = RequestMethod.GET)
+	public String getArticleInfo(@RequestParam("articleId") String articleId, Model model) {
+		model.addAttribute("article", ConfigurationController.getArticleInfo(articleId));
+		return "spider/articleInfo";
+	}
+
+	// 删除文章
+	@RequestMapping(value = "/delArticle", method = RequestMethod.GET)
+	public String delArticle(@RequestParam("articleId") String articleId, Model model) {
+		ConfigurationController.delArticleInfo(articleId);
+		return "forward:index.html";
+	}
 }

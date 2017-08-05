@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import cn.iflin.spider.model.ArticleModel;
 import cn.iflin.spider.model.MysqlConnection;
 import cn.iflin.spider.model.TaskModel;
 
@@ -53,7 +54,7 @@ public class ConfigurationController {
 		Statement stmt;
 		try {
 			stmt = conn.createStatement();
-			String sql = "INSERT spiderTaskInfo VALUE(NULL,'" + source + "','" + texts.get("url") + "','"
+			String sql = "INSERT spider_taskinfo VALUE(NULL,'" + source + "','" + texts.get("url") + "','"
 					+ texts.get("cssSeletor") + "'" + ",'" + texts.get("xpth") + "','" + texts.get("titleCSS") + "','"
 					+ texts.get("titleXpath") + "','" + texts.get("contentCSS") + "','" + texts.get("contentXpath")
 					+ "','" + texts.get("starttimeCSS") + "','" + texts.get("starttimeXpath") + "',NULL)";
@@ -76,7 +77,7 @@ public class ConfigurationController {
 		Statement stmt;
 		try {
 			stmt = conn.createStatement();
-			result = stmt.executeQuery("SELECT * FROM spiderTaskInfo where taskId='" + taskId + "'");
+			result = stmt.executeQuery("SELECT * FROM spider_taskinfo where taskId='" + taskId + "'");
 			while (result.next()) {
 				detail.put("source", result.getString("source"));
 				detail.put("url", result.getString("url"));
@@ -111,7 +112,6 @@ public class ConfigurationController {
 			preStmt.executeUpdate();
 			return true;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return false;
@@ -124,11 +124,10 @@ public class ConfigurationController {
 		// 通过数据的连接操作数据库
 		PreparedStatement preStmt;
 		try {
-			String sql = "DELETE from spidertaskinfo  WHERE taskId='"+taskId+"'";
+			String sql = "DELETE from spider_taskinfo  WHERE taskId='"+taskId+"'";
 			preStmt = conn.prepareStatement(sql);
 			preStmt.executeUpdate();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -145,7 +144,7 @@ public class ConfigurationController {
 		String source, taskId,url,nextTime;
 		try {
 			stmt = conn.createStatement();
-			result = stmt.executeQuery("SELECT taskId,source,url,nextTime FROM spiderTaskInfo");
+			result = stmt.executeQuery("SELECT taskId,source,url,nextTime FROM spider_taskinfo ");
 			if (result == null) {
 				TaskModel sm = new TaskModel();
 				sm.setSource("请新建一个任务");
@@ -184,7 +183,7 @@ public class ConfigurationController {
 				starttimeXpath,nextTime;
 		try {
 			stmt = conn.createStatement();
-			result = stmt.executeQuery("SELECT * FROM spiderTaskInfo");
+			result = stmt.executeQuery("SELECT * FROM spider_taskinfo");
 			if (result == null) {
 				TaskModel sm = new TaskModel();
 				sm.setSource("请新建一个任务");
@@ -248,7 +247,6 @@ public class ConfigurationController {
 				return url;
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -279,7 +277,6 @@ public class ConfigurationController {
 //			 System.out.println("添加成功");
 //			 }
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -289,13 +286,87 @@ public class ConfigurationController {
 	public static void setNextTime(String nextTime){
 		Connection conn = MysqlConnection.getConnection();
 		// 通过数据的连接操作数据库
-		String sql = "UPDATE spidertaskinfo set nextTime='"+nextTime+"'";
+		String sql = "UPDATE spider_taskinfo set nextTime='"+nextTime+"'";
 		PreparedStatement preStmt;
 		try {
 			preStmt = conn.prepareStatement(sql);
 			preStmt.executeUpdate();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	/**
+	 * 获取已爬取的文章列表
+	 */
+	public static ArrayList<ArticleModel> getSpiderArticle(String source){
+		ArrayList<ArticleModel> articleList = new ArrayList<ArticleModel>();
+		Connection conn = MysqlConnection.getConnection();
+		// 通过数据的连接操作数据库
+		String sql = "SELECT ArticleId,Title,Time,Context,Url FROM context WHERE Source='"+source+"'";
+		Statement stmt;
+		ResultSet result = null;
+		String articleId,title,time,context,url;
+		try {
+			stmt = conn.createStatement();
+			result = stmt.executeQuery(sql);
+			if (result == null) {
+				ArticleModel am = new ArticleModel();
+				am.setTitle("暂无文章");
+				articleList.add(am);
+				return articleList;
+			}
+			while (result.next()) {
+				articleId = result.getString("ArticleId");
+				title = result.getString("Title");
+				time = result.getString("Time");
+				context = result.getString("Context");
+				url = result.getString("Url");
+				ArticleModel am = new ArticleModel();
+				am.setArticleId(articleId);
+				am.setTitle(title);
+				am.setStarttime(time);
+				am.setContent(context);
+				am.setUrl(url);
+				articleList.add(am);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return articleList;
+	}
+	/**
+	 * 获取文章内容
+	 */
+	public static ArticleModel getArticleInfo(String articleId){
+		ArticleModel am = new ArticleModel();
+		ResultSet result = null;
+		Connection conn = MysqlConnection.getConnection();
+		Statement stmt;
+		try {
+			stmt = conn.createStatement();
+			result = stmt.executeQuery("SELECT * FROM context where ArticleId='" + articleId + "'");
+			while (result.next()) {
+				am.setTitle(result.getString("Title"));
+				am.setStarttime(result.getString("Time"));
+				am.setContent(result.getString("Context"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return am;
+	}
+	/**
+	 * 刪除文章信息
+	 */
+	public static void delArticleInfo(String articleId){
+		Connection conn = MysqlConnection.getConnection();
+		// 通过数据的连接操作数据库
+		PreparedStatement preStmt;
+		try {
+			String sql = "DELETE from context  WHERE ArticleId='"+articleId+"'";
+			preStmt = conn.prepareStatement(sql);
+			preStmt.executeUpdate();
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}

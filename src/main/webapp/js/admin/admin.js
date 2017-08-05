@@ -53,20 +53,8 @@ $('#loading-example-btn').click(function() {
 	// btn.button('reset');
 	// });
 });
-function getSpiderList() {
-	var url = "getSpiderList";
-	$("#spiderList").addClass("active")
-	$("#home").removeClass("active")
-	sendRequest(url);
-}
-function getRight() {
-	var url = "addTask";
-	sendRequest(url);
-}
-function getTaskName(taskId) {
-	var url = "getDetail?taskId=" + taskId;
-	sendRequest(url);
-}
+
+/** 自定义内容从此开始 */
 var XMLHttpReq = false;
 // 创建XMLHttpRequest对象
 function createXMLHttpRequest() {
@@ -101,7 +89,104 @@ function processResponse() {
 		}
 	}
 }
-//
+//发送请求函数
+function sendSetterRequest(url) {
+	createXMLHttpRequest();
+	XMLHttpReq.open("GET", url, true);
+	XMLHttpReq.onreadystatechange = processSetterResponse;// 指定响应函数
+	XMLHttpReq.send(null); // 发送请求
+}
+// 处理返回信息函数
+function processSetterResponse() {
+	if (XMLHttpReq.readyState == 4) { // 判断对象状态
+		if (XMLHttpReq.status == 200) { // 信息已经成功返回，开始处理信息
+			var result = XMLHttpReq.responseText;
+			document.getElementById("setterArea").innerHTML = result;
+		} else { // 页面不正常
+			window.alert("您所请求的页面有异常。");
+		}
+	}
+}
+// 获取添加詞匯區域
+function getAddWordArea() {
+	var result = "		<div class=\"wordArea\">"
+			+ "<input type=\"text\" class=\"form-control\" id=\"inputWord\" onclick=\"doSaveWord('${tag}')\" placeholder=\"輸入詞匯\">"
+			+ "</div>" + "<div class=\"wordArea\">"
+			+ "<button type=\"submit\" class=\"btn btn-primary\">添加</button>"
+			+ "</div>";
+	$("#addWord").addClass("addWord");
+	$("#addWord").append(result);
+}
+// 获取设置界面
+function getSetterPage() {
+	var url = "getSetter";
+	$("#setter").addClass("active")
+	$("#spiderList").removeClass("active")
+	$("#home").removeClass("active")
+	sendRequest(url);
+}
+// 获取词汇设置界面
+function getWordSetterPage() {
+	var url = "getWordSetterPage";
+	sendRequest(url);
+}
+//获取停用词界面
+function getStopWordView() {
+	var url = "getStopWordView";
+	sendSetterRequest(url);
+}
+//获取选择词词界面
+function getSelectWordView() {
+	var url = "getSelectWordView";
+	sendSetterRequest(url);
+}
+//保存词汇
+function doSaveWord(tag) {
+	var newurl = "save"+tag;
+	$.ajax({
+		type : "POST",
+		dataType : "html",
+		url : newurl,
+		data : $('#addWord').serialize(),
+		success : function(data) {
+			var strresult = data;
+			alert(strresult);
+		},
+		error : function(data) {
+			alert("保存失败");
+		}
+	});
+}
+// 获取爬虫列表
+function getSpiderList() {
+	var url = "getSpiderList";
+	$("#spiderList").addClass("active")
+	$("#setter").removeClass("active")
+	$("#home").removeClass("active")
+	sendRequest(url);
+}
+// 获取添加爬虫页面
+function getRight() {
+	var url = "addTask";
+	sendRequest(url);
+}
+
+// 获取某个爬虫信息
+function getTaskName(taskId) {
+	var url = "getDetail?taskId=" + taskId;
+	sendRequest(url);
+}
+// 通过来源名称获取爬虫已爬文章
+function getSpiderArticle(source) {
+	var url = "getSpiderArticle?source=" + source;
+	sendRequest(url);
+}
+// 获取爬虫已爬文章内容
+function getArticleInfo(articleId) {
+	var url = "getArticleInfo?articleId=" + articleId;
+	sendRequest(url);
+}
+// 获取预览页面
 function doPreview(articleUrl, cssSeletor, xpath) {
 	createXMLHttpRequest();
 	var url = $(articleUrl).val();
@@ -116,6 +201,7 @@ function doPreview(articleUrl, cssSeletor, xpath) {
 	url = "getPageCode?url=" + url + "&cssSeletor=" + css + "&xpath=" + xpath1;
 	window.open(url, '_blank');
 }
+// 保存爬虫信息
 function doSave() {
 	$.ajax({
 		type : "POST",
@@ -132,6 +218,7 @@ function doSave() {
 		}
 	});
 }
+// 保存修改爬虫信息页面
 function doChangeInfo(taskId) {
 	$.ajax({
 		type : "POST",

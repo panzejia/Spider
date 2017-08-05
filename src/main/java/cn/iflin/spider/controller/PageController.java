@@ -16,12 +16,12 @@ import cn.iflin.spider.server.configuration.ConfigurationController;
 public class PageController {
 	@RequestMapping("/addTask")
 	public String getAddTaskPage() {
-		return "SpiderAddTask";
+		return "spider/SpiderAddTask";
 	}
 
 	@RequestMapping("/taskDetail")
 	public String getTaskDetailPage() {
-		return "SpiderTaskDetail";
+		return "spider/SpiderTaskDetail";
 	}
 
 	@RequestMapping("")
@@ -42,7 +42,7 @@ public class PageController {
 	public String getSpiderList(Model model) {
 		ArrayList<TaskModel> taskList = ConfigurationController.getTask();
 		model.addAttribute("spiders", taskList);
-		return "spider/spiderList";
+		return "spiderList";
 	}
 
 	@RequestMapping(value = "/getChangePage", method = RequestMethod.GET)
@@ -60,6 +60,6 @@ public class PageController {
 		model.addAttribute("starttimeXpath", info.get("starttimeXpath"));
 		model.addAttribute("nextTime", info.get("nextTime"));
 		model.addAttribute("taskId", taskId);
-		return "ChangeInfo";
+		return "spider/ChangeInfo";
 	}
 }

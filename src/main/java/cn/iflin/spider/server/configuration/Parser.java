@@ -13,6 +13,8 @@ import org.apache.lucene.analysis.TokenStream;
 import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;
 import org.wltea.analyzer.lucene.IKAnalyzer;
 
+import cn.iflin.spider.model.WordModel;
+
 /**
  * 解析器
  * 
@@ -76,25 +78,24 @@ public class Parser {
 
 		// 申报关键词
 		private static boolean projectWordJudgment(String word) {
-			String stopWordsList[] = { "申报", "通知", "重大", "项目", "指南", "通告", "招标", "课题", "征集", "选题", "重点" };// 常用项目判定词
-			for (int i = 0; i < stopWordsList.length; ++i) {
-
-				if (word.equalsIgnoreCase(stopWordsList[i]))
+//			String stopWordsList[] = { "申报", "通知", "重大", "项目", "指南", "通告", "招标", "课题", "征集", "选题", "重点" };// 常用项目判定词
+			ArrayList<WordModel> selectWordList = SpiderSiteController.getSelectword();
+			for (WordModel wm : selectWordList) {
+				if (word.equalsIgnoreCase(wm.getWord()));
 					return true;
-
 			}
 			return false;
 		}
 
 		// 非申报关键词
 		private static boolean NoProjectWordJudgment(String word) {
-			String stopWordsList[] = { "公示", "名单", "清除", "清理", "结项", "情况", "终止", "少先队", "暑期", "防范", "造假", "2016",
-					"2016年", "检查", "2015", "2015年", "结", "结果", "推荐", "中期", "检查工作", "调查", "调查工作", "少年", "青少年", "评选",
-					"宣讲", "活动", "撤项", "2014", "2014年", "2012", "2012年", "2011", "2011年", "办法", "调整", "撤", "会议", "邀请",
-					"召开", "评估" };// 常用项目判定词
-			for (int i = 0; i < stopWordsList.length; ++i) {
-
-				if (word.equalsIgnoreCase(stopWordsList[i]))
+//			String stopWordsList[] = { "公示", "名单", "清除", "清理", "结项", "情况", "终止", "少先队", "暑期", "防范", "造假", "2016",
+//					"2016年", "检查", "2015", "2015年", "结", "结果", "推荐", "中期", "检查工作", "调查", "调查工作", "少年", "青少年", "评选",
+//					"宣讲", "活动", "撤项", "2014", "2014年", "2012", "2012年", "2011", "2011年", "办法", "调整", "撤", "会议", "邀请",
+//					"召开", "评估" };// 常用项目判定词
+			ArrayList<WordModel> stopWordList = SpiderSiteController.getStopword();
+			for (WordModel wm : stopWordList) {
+				if (word.equalsIgnoreCase(wm.getWord()))
 					return true;
 
 			}
