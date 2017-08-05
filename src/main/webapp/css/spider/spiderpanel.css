@@ -1,0 +1,213 @@
+/**全局设置*/
+body{
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+    font-family: "Century Gothic","Microsoft yahei";
+}
+body, div, dl, dt, dd, ul, ol, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, button, textarea, p, blockquote, th, td, iframe, table, tr{
+	margin: 0;
+    padding: 0;
+}
+a {
+    text-decoration: none;
+}
+li{
+	padding:5px;
+	border-bottom:1px solid #00688B;
+}
+
+/**header区域和结果区域*/
+.top {
+    height: 30px;
+    background: #F7F7F7;
+    border-bottom: 1px solid #E0E0E0;
+    width: 100%;
+    min-width: 100%;
+    box-shadow: 0 1px 2px #E2EBF4;
+}
+.topli{
+	margin: 2px;
+	padding: 2px;
+	float:right;
+	list-style:none;
+	text-align:center;
+}
+.idxlogo {
+    position: relative;
+    margin-top: 40px;
+    text-align: center;
+    width: 100%;
+    
+}
+.resultArea {
+	padding: 30px;
+	margin:0 auto; 
+	background: #F7F7F7;
+    border-bottom: 1px solid #E0E0E0;
+    box-shadow: 0 1px 2px #E2EBF4;
+	height:900px;
+}
+.pic{
+    text-align:center;
+ }
+
+
+/**按钮设置*/
+.button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 4px 2px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+.inputbutton {
+	border-radius: 4px;
+    background-color: white; 
+    color: black; 
+    border: 2px solid #008CBA;
+}
+
+.inputbutton:hover {
+	border-radius: 4px;
+    background-color: #008CBA;
+    color: white;
+}
+
+/**从这里开始是左边区域*/
+.resultleft {
+	overflow:auto;
+	width:220px;float:left;
+	height:850px;
+	text-align:center;
+	
+}
+.resultlefttop{
+	height:50px;
+	background: #F7F7F7;
+	border-bottom: 1px solid #00688B;
+}
+/**列表样式*/
+ol{
+	counter-reset: li;
+	list-style: none;
+	*list-style: decimal;
+	font: 15px 'trebuchet MS', 'lucida sans';
+	padding: 0;
+	margin-bottom: 4em;
+	text-shadow: 0 1px 0 rgba(255,255,255,.5);
+}
+
+ol ol{
+	margin: 0 0 0 2em;
+}
+.rectangle-list a{
+	position: relative;
+	display: block;
+	padding: .4em .4em .4em .8em;
+	*padding: .4em;
+	margin: .5em 0 .5em 2.5em;
+	background: #ddd;
+	color: #444;
+	text-decoration: none;
+	-webkit-transition: all .3s ease-out;
+	-moz-transition: all .3s ease-out;
+	-ms-transition: all .3s ease-out;
+	-o-transition: all .3s ease-out;
+	transition: all .3s ease-out;	
+}
+
+.rectangle-list a:hover{
+	background: #eee;
+}	
+
+.rectangle-list a:before{
+	content: counter(li);
+	counter-increment: li;
+	position: absolute;	
+	left: -2.5em;
+	top: 50%;
+	margin-top: -1em;
+	background: #fa8072;
+	height: 2em;
+	width: 2em;
+	line-height: 2em;
+	text-align: center;
+	font-weight: bold;
+}
+			
+.rectangle-list a:after{
+	position: absolute;	
+	content: '';
+	border: .5em solid transparent;
+	left: -1em;
+	top: 50%;
+	margin-top: -.5em;
+	-webkit-transition: all .3s ease-out;
+	-moz-transition: all .3s ease-out;
+	-ms-transition: all .3s ease-out;
+	-o-transition: all .3s ease-out;
+	transition: all .3s ease-out;	
+}
+
+.rectangle-list a:hover:after{
+	left: -.5em;
+	border-left-color: #fa8072;	
+}
+
+
+
+
+/*从这里开始是右边区域*/
+.resultright {
+	overflow:auto;
+	width:650px;float:left;
+	height:920px;
+}
+.resultrightcenter{
+	text-align:center;
+	margin:10px auto; 
+}
+
+.textarea{
+	margin:0 auto; 
+	width:500px;
+}
+/**文本框设置*/
+.textareastyle{
+	width:300px;
+	height:45px;
+	margin:10px 0px; 
+}
+
+/**右边详情部分*/
+.title{
+	width:20%;
+	float:left;
+	height:40px;
+	color: #444
+}
+.info{
+	word-wrap:break-word;
+	width:80%;
+	float:left;
+	height:40px;
+}
+.taskdetail{
+	height:400px;
+}
+.taskrow{
+	height:25%;
+}
+.taskinfo{
+	word-wrap:break-word;
+	float:left;
+	width:25%;
+}
