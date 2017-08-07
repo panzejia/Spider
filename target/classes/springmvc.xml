@@ -55,7 +55,7 @@
 			value="cn.iflin.spider.server.timer.SpiderController" />
 		<property name="jobDataMap">
 			<map>
-				<entry key="hour" value="12" />
+				<entry key="hour" value="24" />
 				<entry key="minutes" value="0" />
 			</map>
 		</property>
@@ -65,7 +65,7 @@
 	<!-- 设定时间 -->
 	<bean id="spiderCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
 	    <property name="jobDetail"  ref="spiderJobDetail"/>
-	    <property name="cronExpression"  value="0 0 0/12 * * ? *"/>
+	    <property name="cronExpression"  value="0 5 21 * * ? "/>
 	</bean>
 	
 	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">

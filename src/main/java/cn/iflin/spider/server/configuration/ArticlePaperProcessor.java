@@ -57,6 +57,8 @@ public class ArticlePaperProcessor implements PageProcessor {
 			page.putField("content", content);
 			String contentNoCode = ContentParser.delTag(content);
 			page.putField("contentNoCode", contentNoCode);
+			String stopTime = TimeParser.getStopTime(contentNoCode);
+			page.putField("stopTime", stopTime);
 		}
 		if (this.contentCSS.equals("0")) {
 			Selectable contentSelect = page.getHtml().xpath(this.contentXpath);
@@ -65,6 +67,8 @@ public class ArticlePaperProcessor implements PageProcessor {
 			page.putField("content", content);
 			String contentNoCode = ContentParser.delTag(content);
 			page.putField("contentNoCode", contentNoCode);
+			String stopTime = TimeParser.getStopTime(contentNoCode);
+			page.putField("stopTime", stopTime);
 		}
 		if (this.starttimeXpath.equals("0")) {
 			String time = page.getHtml().css(this.starttimeCSS).get();
@@ -91,6 +95,7 @@ public class ArticlePaperProcessor implements PageProcessor {
 		ResultItems resultItems = spider.get(articleUrl);
 		model.setTitle(resultItems.getAll().get("title").toString());
 		model.setStarttime(resultItems.getAll().get("starttime").toString());
+		model.setStoptime(resultItems.getAll().get("stopTime").toString());
 		model.setContent(resultItems.getAll().get("content").toString());
 		model.setContentNoCode(resultItems.getAll().get("contentNoCode").toString());
 		spider.close();

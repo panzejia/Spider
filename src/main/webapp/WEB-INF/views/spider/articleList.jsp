@@ -44,6 +44,7 @@
 							<th>文章名称</th>
 							<th>文章链接</th>
 							<th>发布时间</th>
+							<th>截止时间</th>
 							<th>Edit</th>
 							<th>Delete</th>
 						</tr>
@@ -57,6 +58,7 @@
 									onclick="getArticleInfo('${article.getArticleId()}')">${article.getTitle()}</a></td>
 								<td>${article.getUrl()}</td>
 								<td>${article.getStarttime()}</td>
+								<td>${article.getStoptime()}</td>
 								<td><a href="#"
 									onclick="doChangePage('${spider.getTaskId()}')"
 									class="btn btn-default">Edit</a></td>

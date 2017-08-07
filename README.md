@@ -1,6 +1,10 @@
 # Spider
 Spider System-- Beijing Normal University, Zhuhai
 
+#2017/8/7
+1. 增加任务状态控制
+2.增加获取到截止时间，但不是100%
+
 # 2017/8/5
 1. 可以自定义停用词、选择词。
 2. 对已爬取的文章可进行预览。

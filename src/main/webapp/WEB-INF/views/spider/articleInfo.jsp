@@ -15,13 +15,15 @@
 		<li class="active">Article</li>
 	</ol>
 	<div class="resultArea" style=" text-align:center;">
-		<div style="color:#000000;font-size:25px;" >
+		<div style="color:#000000;font-size:18px;" >
 			${article.getTitle()}
 		</div>
-		<div style="color:#505050;font-size:20px;" >
+		<div style="color:#505050;font-size:15px;" >
 			发布时间：${article.getStarttime()}
 		</div>
-	
+		<div style="color:#505050;font-size:15px;" >
+			截止时间：${article.getStoptime()}
+		</div>
 		<div class="article" style="font-family: 微软雅黑;font-size: 16px; text-align:left;">
 			${article.getContent()}
 		</div>

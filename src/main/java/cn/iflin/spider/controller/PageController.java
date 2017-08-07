@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import cn.iflin.spider.model.TaskModel;
-import cn.iflin.spider.server.configuration.ConfigurationController;
+import cn.iflin.spider.server.configuration.TaskSqlConfiguration;
 
 @Controller
 public class PageController {
@@ -26,28 +26,28 @@ public class PageController {
 
 	@RequestMapping("")
 	public String index1(Model model) {
-		ArrayList<TaskModel> taskList = ConfigurationController.getTaskName();
+		ArrayList<TaskModel> taskList = TaskSqlConfiguration.getTaskName();
 		model.addAttribute("spiders", taskList);
 		return "forward:index.jsp";
 	}
 
 	@RequestMapping("index.html")
 	public String index2(Model model) {
-		ArrayList<TaskModel> taskList = ConfigurationController.getTaskName();
+		ArrayList<TaskModel> taskList = TaskSqlConfiguration.getTaskName();
 		model.addAttribute("spiders", taskList);
 		return "forward:index.jsp";
 	}
 
 	@RequestMapping("getSpiderList")
 	public String getSpiderList(Model model) {
-		ArrayList<TaskModel> taskList = ConfigurationController.getTask();
+		ArrayList<TaskModel> taskList = TaskSqlConfiguration.getTask();
 		model.addAttribute("spiders", taskList);
 		return "spiderList";
 	}
 
 	@RequestMapping(value = "/getChangePage", method = RequestMethod.GET)
 	public String changePage(@RequestParam("taskId") String taskId, Model model) {
-		HashMap<String, String> info = ConfigurationController.getDetailById(taskId);
+		HashMap<String, String> info = TaskSqlConfiguration.getDetailById(taskId);
 		model.addAttribute("source", info.get("source"));
 		model.addAttribute("url", info.get("url"));
 		model.addAttribute("cssSeletor", info.get("cssSeletor"));

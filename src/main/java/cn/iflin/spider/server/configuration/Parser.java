@@ -81,8 +81,9 @@ public class Parser {
 //			String stopWordsList[] = { "申报", "通知", "重大", "项目", "指南", "通告", "招标", "课题", "征集", "选题", "重点" };// 常用项目判定词
 			ArrayList<WordModel> selectWordList = SpiderSiteController.getSelectword();
 			for (WordModel wm : selectWordList) {
-				if (word.equalsIgnoreCase(wm.getWord()));
+				if (word.equals(wm.getWord())){
 					return true;
+				}
 			}
 			return false;
 		}
@@ -95,9 +96,9 @@ public class Parser {
 //					"召开", "评估" };// 常用项目判定词
 			ArrayList<WordModel> stopWordList = SpiderSiteController.getStopword();
 			for (WordModel wm : stopWordList) {
-				if (word.equalsIgnoreCase(wm.getWord()))
+				if (word.equals(wm.getWord())){
 					return true;
-
+				}
 			}
 			return false;
 		}
@@ -110,11 +111,15 @@ public class Parser {
 	 *
 	 */
 	public static class TimeParser {
+		/**
+		 * 1.获取单句中的时间。
+		 * 2.获取发布时间
+		 */
 		public static String getTime(String doc) {
 			String startTime = "";
-			String regex = "[0-9]*-[0-9]*-[0-9]*";
-			String regex_2 = "[0-9]*年[0-9]*月[0-9]*日";
-			String regex_3 = "[0-9]*/[0-9]*/[0-9]*日";
+			String regex = "[\\s]*[0-9]*[\\s]*[-/][\\s]*[0-9]*[\\s]*[-/][\\s]*[0-9]*[\\s]*";
+			String regex_2 = "[\\s]*[0-9]*[\\s]*年[\\s]*[0-9]*[\\s]*月[\\s]*[0-9]*[\\s]*日";
+			String regex_3 = "[\\s]*[0-9]*[\\s]*月[\\s]*[0-9]*[\\s]*日";
 			Pattern pattern = Pattern.compile(regex);
 			Matcher matcher = pattern.matcher(doc);
 			Pattern pattern_2 = Pattern.compile(regex_2);
@@ -122,17 +127,49 @@ public class Parser {
 			Pattern pattern_3 = Pattern.compile(regex_3);
 			Matcher matcher_3 = pattern_3.matcher(doc);
 			while (matcher.find()) {
-				startTime = matcher.group();
+				startTime = matcher.group().replaceAll("/", "-").replaceAll("/", "-");
+			}
+			while (matcher_3.find()) {
+				startTime = matcher_3.group();
+				startTime = "2017-"+startTime.replaceAll("月", "-").replaceAll("日", "");
 			}
 			while (matcher_2.find()) {
 				startTime = matcher_2.group();
-				startTime.replaceAll("年", "-").replaceAll("月", "-").replaceAll("日", "");
+				startTime = startTime.replaceAll("年", "-").replaceAll("月", "-").replaceAll("日", "");
 			}
-			while (matcher_3.find()) {
-				startTime = matcher_2.group();
-				startTime.replaceAll("/", "-").replaceAll("/", "-");
-			}
+			
 			return startTime;
+		}
+		/**
+		 * 获取截止时间
+		 */
+		public static String getStopTime(String doc) {
+			String stopTime = "";
+			String regex_1 = "截止[^\\s]*。";
+			String regex_3 = "截止[^\\s]*。";
+			String regex_2 = "[\\s]*[0-9]*[\\s]*年[\\s]*[0-9]*[\\s]*月[\\s]*[0-9]*[\\s]*日[^\\s]*前[^\\。]*";
+			String regex_5 = "[^\\s]*[\\s]*[0-9]*[\\s]*月[\\s]*[0-9]*[\\s]*日[^\\s]*前[^\\。]*";
+			Pattern pattern_1 = Pattern.compile(regex_1);
+			Matcher matcher_1 = pattern_1.matcher(doc);
+			Pattern pattern_2 = Pattern.compile(regex_2);
+			Matcher matcher_2 = pattern_2.matcher(doc);
+			Pattern pattern_3 = Pattern.compile(regex_3);
+			Matcher matcher_3 = pattern_3.matcher(doc);
+			Pattern pattern_5 = Pattern.compile(regex_5);
+			Matcher matcher_5 = pattern_5.matcher(doc);
+			while (matcher_2.find()) {
+				stopTime = getTime(matcher_2.group());
+			}
+			while (matcher_5.find()) {
+				stopTime = getTime(matcher_5.group());
+			}
+			while (matcher_1.find()) {
+				stopTime = getTime(matcher_1.group());
+			}
+//			while (matcher_3.find()) {
+//				stopTime = getTime(matcher_3.group());
+//			}
+			return stopTime;
 		}
 	}
 
@@ -237,7 +274,7 @@ public class Parser {
 			if (starttimeXpath.equals("")) {
 				starttimeXpath = "0";
 			}
-			if (ConfigurationController.addUrlConfiguration(source, liUrl, cssSeletor, xpath, titleCSS, titleXpath,
+			if (TaskSqlConfiguration.addUrlConfiguration(source, liUrl, cssSeletor, xpath, titleCSS, titleXpath,
 					contentCSS, contentXpath, starttimeCSS, starttimeXpath)) {
 				return true;
 			}
@@ -246,24 +283,20 @@ public class Parser {
 
 		/**
 		 * 获取没有爬取的列表
+		 * 使用栈存放，排第一个的文章最后一个存放到数据库中。
 		 */
 		public static Stack<String> getArticleNoExistedList(List<String> oldUrlList, String source) {
 			String url = "";
-			url = ConfigurationController.getLastUrl(source);
-			System.out.println(url);
+			url = ArticleSqlConfiguration.getLastUrl(source);
 			Stack<String> urlList = new Stack<String>();
-			int count =0 ;
 			for (int i = 0; i < oldUrlList.size(); i++) {
 				if (url.equals(oldUrlList.get(i))) {
 					break;
 				} else {
-					count++;
+					System.out.println(oldUrlList.get(i));
 					urlList.push(oldUrlList.get(i));
 				}
 			}
-			System.out.println("count:"+count+urlList.get(0));
-			
-			
 			return urlList;
 		}
 

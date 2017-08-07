@@ -89,7 +89,7 @@ function processResponse() {
 		}
 	}
 }
-//发送请求函数
+// 发送请求函数
 function sendSetterRequest(url) {
 	createXMLHttpRequest();
 	XMLHttpReq.open("GET", url, true);
@@ -107,16 +107,12 @@ function processSetterResponse() {
 		}
 	}
 }
-// 获取添加詞匯區域
-function getAddWordArea() {
-	var result = "		<div class=\"wordArea\">"
-			+ "<input type=\"text\" class=\"form-control\" id=\"inputWord\" onclick=\"doSaveWord('${tag}')\" placeholder=\"輸入詞匯\">"
-			+ "</div>" + "<div class=\"wordArea\">"
-			+ "<button type=\"submit\" class=\"btn btn-primary\">添加</button>"
-			+ "</div>";
-	$("#addWord").addClass("addWord");
-	$("#addWord").append(result);
+// 修改任务状态
+function changeTaskStatus(taskId, status) {
+	var url = "changeTaskStatus?taskId=" + taskId + "&status=" + status;
+	sendRequest(url);
 }
+
 // 获取设置界面
 function getSetterPage() {
 	var url = "getSetter";
@@ -130,19 +126,19 @@ function getWordSetterPage() {
 	var url = "getWordSetterPage";
 	sendRequest(url);
 }
-//获取停用词界面
+// 获取停用词界面
 function getStopWordView() {
 	var url = "getStopWordView";
 	sendSetterRequest(url);
 }
-//获取选择词词界面
+// 获取选择词词界面
 function getSelectWordView() {
 	var url = "getSelectWordView";
 	sendSetterRequest(url);
 }
-//保存词汇
+// 保存词汇
 function doSaveWord(tag) {
-	var newurl = "save"+tag;
+	var newurl = "save" + tag;
 	$.ajax({
 		type : "POST",
 		dataType : "html",
@@ -187,20 +183,20 @@ function getArticleInfo(articleId) {
 	sendRequest(url);
 }
 // 获取预览页面
-function doPreview(articleUrl, cssSeletor, xpath) {
+function doPreview(articleUrl,cssSeletor,xpath){ 
 	createXMLHttpRequest();
-	var url = $(articleUrl).val();
-	if (cssSeletor == "body") {
-		url = "getPageCode?url=" + url + "&cssSeletor=" + cssSeletor
-				+ "&xpath=" + xpath;
+	var url =$(articleUrl).val();
+	if(cssSeletor=="body"){
+		url = "getPageCode?url="+url+"&cssSeletor="+cssSeletor+"&xpath="+xpath;
 		window.open(url, '_blank');
 		return;
 	}
-	var css = $(cssSeletor).val();
-	var xpath1 = $(xpath).val();
-	url = "getPageCode?url=" + url + "&cssSeletor=" + css + "&xpath=" + xpath1;
+	var css =$(cssSeletor).val();
+	var xpath1 =$(xpath).val();
+	url = "getPageCode?url="+url+"&cssSeletor="+css+"&xpath="+xpath1;
 	window.open(url, '_blank');
 }
+
 // 保存爬虫信息
 function doSave() {
 	$.ajax({

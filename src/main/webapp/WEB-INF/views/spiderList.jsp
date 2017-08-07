@@ -60,7 +60,9 @@
 								<td><a href="#"
 									onclick="doChangePage('${spider.getTaskId()}')"
 									class="btn btn-default">Edit</a></td>
-								<td>Action</td>
+								<td><a href="#" title="点击修改状态"
+									onclick="changeTaskStatus('${spider.getTaskId()}','${spider.getStatus()}')"
+									class="btn btn-default">${spider.getStatus()}</a></td>
 								<td><a href="delTask?taskId=${spider.getTaskId()}"
 									class="btn btn-link">Delete</a></td>
 							</tr>

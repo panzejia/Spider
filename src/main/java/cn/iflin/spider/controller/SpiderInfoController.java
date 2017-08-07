@@ -4,14 +4,13 @@ import java.util.HashMap;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import cn.iflin.spider.model.TaskModel;
-import cn.iflin.spider.server.configuration.ConfigurationController;
+import cn.iflin.spider.server.configuration.ArticleSqlConfiguration;
 import cn.iflin.spider.server.configuration.Parser.UrlParser;
+import cn.iflin.spider.server.configuration.TaskSqlConfiguration;
 import cn.iflin.spider.server.configuration.ViewPaperProcessor;
 
 @Controller
@@ -70,7 +69,7 @@ public class SpiderInfoController {
 		if (starttimeXpath.equals("") == false) {
 			sql = "UPDATE spidertaskinfo set contentXpath='" + starttimeXpath + "' WHERE taskId='" + taskId + "';";
 		}
-		if (ConfigurationController.changeTaskInfo(sql)) {
+		if (TaskSqlConfiguration.changeTaskInfo(sql)) {
 			return "spider/changeSuccess";
 		}
 		return "spider/changeFaild";
@@ -79,14 +78,14 @@ public class SpiderInfoController {
 	// 删除任务
 	@RequestMapping(value = "/delTask", method = RequestMethod.GET)
 	public String delTask(@RequestParam("taskId") String taskId) {
-		ConfigurationController.delTaskInfo(taskId);
+		TaskSqlConfiguration.delTaskInfo(taskId);
 		return "forward:index.html";
 	}
 
 	// 獲取任務詳情
 	@RequestMapping(value = "/getDetail", method = RequestMethod.GET)
 	public String getTaskDetail(@RequestParam("taskId") String taskId, Model model) {
-		HashMap<String, String> info = ConfigurationController.getDetailById(taskId);
+		HashMap<String, String> info = TaskSqlConfiguration.getDetailById(taskId);
 		model.addAttribute("source", info.get("source"));
 		model.addAttribute("url", info.get("url"));
 		model.addAttribute("cssSeletor", info.get("cssSeletor"));
@@ -110,24 +109,37 @@ public class SpiderInfoController {
 		return "spider/view";
 	}
 
+	// 修改任务状态
+	@RequestMapping(value = "/changeTaskStatus", method = RequestMethod.GET)
+	public String changeTaskStatus(@RequestParam("taskId") String taskId, @RequestParam("status") String status,
+			Model model) {
+		if (status.equals("Action")) {
+			TaskSqlConfiguration.changeTaskStatus(taskId, "Stop");
+		}
+		if (status.equals("Stop")) {
+			TaskSqlConfiguration.changeTaskStatus(taskId, "Action");
+		}
+		return "forward:getSpiderList";
+	}
+
 	// 获得已爬取的文章列表
 	@RequestMapping(value = "/getSpiderArticle", method = RequestMethod.GET)
 	public String getSpiderArticle(@RequestParam("source") String source, Model model) {
-		model.addAttribute("articles", ConfigurationController.getSpiderArticle(source));
+		model.addAttribute("articles", ArticleSqlConfiguration.getSpiderArticle(source));
 		return "spider/articleList";
 	}
 
 	// 获取文章内容
 	@RequestMapping(value = "/getArticleInfo", method = RequestMethod.GET)
 	public String getArticleInfo(@RequestParam("articleId") String articleId, Model model) {
-		model.addAttribute("article", ConfigurationController.getArticleInfo(articleId));
+		model.addAttribute("article", ArticleSqlConfiguration.getArticleInfo(articleId));
 		return "spider/articleInfo";
 	}
 
 	// 删除文章
 	@RequestMapping(value = "/delArticle", method = RequestMethod.GET)
 	public String delArticle(@RequestParam("articleId") String articleId, Model model) {
-		ConfigurationController.delArticleInfo(articleId);
+		ArticleSqlConfiguration.delArticleInfo(articleId);
 		return "forward:index.html";
 	}
 }

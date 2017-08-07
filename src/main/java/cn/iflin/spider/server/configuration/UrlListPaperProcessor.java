@@ -19,27 +19,22 @@ import us.codecraft.webmagic.processor.PageProcessor;
  */
 public class UrlListPaperProcessor implements PageProcessor {
 	private Site site = Site.me().setRetryTimes(3).setSleepTime(1000);
-	private String cssSeletor ="0";
-	private String xpath ="0";
+	private static String cssSeletor="0" ;
+	private static String xpath="0" ;
 
-	public UrlListPaperProcessor(TaskModel taskModel) {
-		if (taskModel.getXpath().equals("0")) {
-			this.cssSeletor = taskModel.getCssSeletor();
-		}
-		if (taskModel.getCssSeletor().equals("0")) {
-			this.xpath = taskModel.getXpath();
-		}
+	public UrlListPaperProcessor() {
+
 
 	}
 
 
 	// process是定制爬虫逻辑的核心接口，在这里编写抽取逻辑
 	public void process(Page page) {
-		if (this.cssSeletor.equals("0")) {
-			page.putField("url", page.getHtml().xpath(this.xpath).links().all());
+		if (cssSeletor.equals("0")) {
+			page.putField("url", page.getHtml().xpath(xpath).links().all());
 		}
-		if (this.xpath.equals("0")) {
-			page.putField("url", page.getHtml().css(this.cssSeletor).links().all());
+		if (xpath.equals("0")) {
+			page.putField("url", page.getHtml().css(cssSeletor).links().all());
 		}
 		
 	}
@@ -53,7 +48,13 @@ public class UrlListPaperProcessor implements PageProcessor {
 	 */
 	@SuppressWarnings("unchecked")
 	public static List<String> getUrlList(TaskModel taskModel) {
-		Spider spider = Spider.create(new UrlListPaperProcessor(taskModel)).thread(2);
+		if (taskModel.getXpath().equals("0")) {
+			cssSeletor = taskModel.getCssSeletor();
+		}
+		if (taskModel.getCssSeletor().equals("0")) {
+			xpath = taskModel.getXpath();
+		}
+		Spider spider = Spider.create(new UrlListPaperProcessor()).thread(2);
 		ResultItems resultItems = spider.get(taskModel.getUrl());
 		List<String> urlList = (List<String>) resultItems.getAll().get("url");
 		spider.close();
