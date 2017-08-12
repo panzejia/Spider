@@ -4,13 +4,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" type="text/css" href="css/spider/spiderpanel.css" />
-
 <title>Insert title here</title>
 </head>
 <body>
 			<!-- 右边内容Start-->
-			<form id="addForm" class="resultrightcenter">
+			<div class="resultrightcenter">
 				<div class="textarea">
 					<div style="width:30%;float:left;text-align:center;height:48px; line-height:48px"><a>任务名称或来源名称：</a></div>
 					<div style="width:70%;float:left">
@@ -75,10 +73,10 @@
 					<input class="button inputbutton" type="submit" onclick="doPreview(articleUrl,contentCSS,contentXpath);" value="预览正文"/>
 				</div>
 				<div class="textarea">
-					<input type="button" class="button inputbutton" value="提交" onclick="doSave();">
+					<a class="button inputbutton" href="javascript:void(0)" onclick="doSave();">提交</a>
 				</div>
 			</div>
-		</form>
+		</div>
 		<!-- 右边内容End-->
 </body>
 </html>

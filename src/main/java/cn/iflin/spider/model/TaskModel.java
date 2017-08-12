@@ -1,32 +1,6 @@
 package cn.iflin.spider.model;
 
 public class TaskModel {
-	private String status;
-	/**
-	 * @return the status
-	 */
-	public String getStatus() {
-		return status;
-	}
-	/**
-	 * @param status the status to set
-	 */
-	public void setStatus(String status) {
-		this.status = status;
-	}
-	private String nextTime ;
-	/**
-	 * @return the nextTime
-	 */
-	public String getNextTime() {
-		return nextTime;
-	}
-	/**
-	 * @param nextTime the nextTime to set
-	 */
-	public void setNextTime(String nextTime) {
-		this.nextTime = nextTime;
-	}
 	private String taskId;
 	/**
 	 * @return the taskId

@@ -1,6 +1,9 @@
 # Spider
 Spider System-- Beijing Normal University, Zhuhai
 
+#2017/8/12
+1.增加词云V1.0
+
 #2017/8/7
 1. 增加任务状态控制
 2.增加获取到截止时间，但不是100%
