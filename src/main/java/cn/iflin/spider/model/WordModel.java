@@ -3,11 +3,26 @@ package cn.iflin.spider.model;
 public class WordModel {
 	private String word;
 	private String wordId;
+	private Integer wordFrequency;
 	/**
 	 * @return the word
 	 */
 	public String getWord() {
 		return word;
+	}
+	/**
+	 * @return the wordFrequency
+	 * 出现的次数
+	 */
+	public Integer getWordFrequency() {
+		return wordFrequency;
+	}
+	/**
+	 * @param wordFrequency the wordFrequency to set
+	 * 设置出现的次数
+	 */
+	public void setWordFrequency(Integer wordFrequency) {
+		this.wordFrequency = wordFrequency;
 	}
 	/**
 	 * @return the wordId

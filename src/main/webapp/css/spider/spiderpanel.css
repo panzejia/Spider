@@ -17,25 +17,6 @@ li{
 	border-bottom:1px solid #00688B;
 }
 
-/* 设置滚动条的样式 */
-::-webkit-scrollbar {
-width:8px;
-}
-/* 滚动槽 */
-::-webkit-scrollbar-track {
--webkit-box-shadow:inset006pxrgba(0,0,0,0.3);
-border-radius:8px;
-}
-/* 滚动条滑块 */
-::-webkit-scrollbar-thumb {
-border-radius:8px;
-background:#87CEFF;
--webkit-box-shadow:inset006pxrgba(0,0,0,0.5);
-}
-::-webkit-scrollbar-thumb:window-inactive {
-background:#87CEFF;
-}
-
 /**header区域和结果区域*/
 .top {
     height: 30px;

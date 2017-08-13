@@ -3,7 +3,8 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <ol class="breadcrumb">
 	<li><a href="index.html">SpiderPanel</a></li>
-	<li class="active">Setter</li>
+	<li><a href="#"  onclick="getSetterPage()">Setter</a></li>
+	<li class="active">过滤词汇设置</li>
 </ol>
 <h1>过滤词汇设置</h1>
 <div class="row">

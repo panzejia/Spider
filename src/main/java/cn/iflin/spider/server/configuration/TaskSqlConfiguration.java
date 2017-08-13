@@ -284,4 +284,8 @@ public class TaskSqlConfiguration {
 			e.printStackTrace();
 		}
 	}
+	
+	/**
+	 * 获取任务已有的文章数量
+	 */
 }

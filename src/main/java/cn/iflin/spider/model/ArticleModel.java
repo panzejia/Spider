@@ -6,6 +6,32 @@ public class ArticleModel {
 	private String stoptime;
 	private String content;
 	private String contentNoCode;
+	private String articleId;
+	private String url;
+	/**
+	 * @return the articleId
+	 */
+	public String getArticleId() {
+		return articleId;
+	}
+	/**
+	 * @return the url
+	 */
+	public String getUrl() {
+		return url;
+	}
+	/**
+	 * @param articleId the articleId to set
+	 */
+	public void setArticleId(String articleId) {
+		this.articleId = articleId;
+	}
+	/**
+	 * @param url the url to set
+	 */
+	public void setUrl(String url) {
+		this.url = url;
+	}
 	public String getTitle() {
 		return title;
 	}

@@ -107,18 +107,43 @@ function processSetterResponse() {
 		}
 	}
 }
+//获取词云文章列表页面
+function doWordCloud(){
+	var url = "getWordCloud";
+	$("#wordCloud").addClass("active")
+	$("#spiderList").removeClass("active")
+	$("#home").removeClass("active")
+	$("#setter").removeClass("active")
+	sendRequest(url);
+}
+//获取词云
+function doWordCloudByArticle(articleId){
+	var url = "getWordFre?articleId=" + articleId;
+	sendRequest(url);
+}
+//自定义文章词云
+function doWordCloudTemp(wordCloudContent){
+	var url = "getWordFreTemp?content=" + $(wordCloudContent).val();
+	sendRequest(url);
+}
+
 // 修改任务状态
 function changeTaskStatus(taskId, status) {
 	var url = "changeTaskStatus?taskId=" + taskId + "&status=" + status;
 	sendRequest(url);
 }
-
+//獲取關於界面
+function getAboutPage(){
+	var url = "getAboutPage";
+	sendRequest(url);
+}
 // 获取设置界面
 function getSetterPage() {
 	var url = "getSetter";
 	$("#setter").addClass("active")
 	$("#spiderList").removeClass("active")
 	$("#home").removeClass("active")
+	$("#wordCloud").removeClass("active")
 	sendRequest(url);
 }
 // 获取词汇设置界面
@@ -159,6 +184,7 @@ function getSpiderList() {
 	$("#spiderList").addClass("active")
 	$("#setter").removeClass("active")
 	$("#home").removeClass("active")
+	$("#wordCloud").removeClass("active")
 	sendRequest(url);
 }
 // 获取添加爬虫页面

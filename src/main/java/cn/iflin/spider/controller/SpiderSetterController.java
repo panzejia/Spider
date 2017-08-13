@@ -88,4 +88,9 @@ public class SpiderSetterController {
 		SpiderSiteController.addSelectword(selectword);
 		return "spider/changeSuccess";
 	}
+	//獲取關於界面
+	@RequestMapping("getAboutPage")
+	public String getAboutPage() {
+		return "setter/about";
+	}
 }

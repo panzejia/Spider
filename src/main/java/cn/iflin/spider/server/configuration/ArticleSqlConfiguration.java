@@ -12,6 +12,46 @@ import cn.iflin.spider.model.MysqlConnection;
 
 public class ArticleSqlConfiguration {
 	/**
+	 * 从数据库中获取所有文章
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	public static ArrayList<ArticleModel> getAllArticle() {
+		ArrayList<ArticleModel> articleList = new ArrayList<ArticleModel>();
+		Connection conn = MysqlConnection.getConnection();
+		// 通过数据的连接操作数据库
+		String sql = "SELECT * FROM context";
+		Statement stmt;
+		ResultSet result = null;
+		String articleId, title, time, context, url,stopTime;
+		try {
+			stmt = conn.createStatement();
+			result = stmt.executeQuery(sql);
+			if (result == null) {
+				ArticleModel am = new ArticleModel();
+				am.setTitle("暂无文章");
+				articleList.add(am);
+				return articleList;
+			}
+			while (result.next()) {
+				articleId = result.getString("ArticleId");
+				title = result.getString("Title");
+				time = result.getString("Time");
+				url = result.getString("Url");
+				ArticleModel am = new ArticleModel();
+				am.setArticleId(articleId);
+				am.setTitle(title);
+				am.setStarttime(time);
+				am.setUrl(url);
+				articleList.add(am);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return articleList;
+	}
+	/**
 	 * 从数据库中获取到分类下的最新的一条文章
 	 * 
 	 * @return

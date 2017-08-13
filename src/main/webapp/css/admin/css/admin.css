@@ -25,10 +25,70 @@
     color: white;
 }
 
-/*詞匯區域**/
+/*设置->詞匯區域**/
 .wordArea{
 	width:50%;float:left
 }
 .addWord{
     padding-bottom: 50px;
+}
+
+/**设置->关于区域  */
+.about{
+	width:100%;
+	margin:0 auto;
+}
+.title{
+	font-size:25px;
+}
+
+.about  a{
+	color:#000;
+}
+.about  a:hover, a:focus {
+    text-decoration: none;
+}
+.about p{
+	font-size:17px;
+}
+
+/**右边悬浮窗*/
+.menu{
+	width: 88px;
+	height: auto; 
+	position: fixed;
+	top: 50%;
+	right: 88px;
+	margin-top: -135px;
+}
+.menu ul{
+	display: block;
+	list-style: none
+}
+.menu ul li a{
+	width: 88px; 
+	height: 54px; 
+	line-height: 54px; 
+	text-align: center;
+	background-color: #428bca;
+	color: #fff;
+	display: block
+}
+.menu ul li a:hover,.menu ul li a.cur{
+	background-color: #428bca;
+	color: #fff;
+	text-decoration: none;
+}
+/**词云区域*/
+.wordCloudButtonArea{
+	width:10%;
+}
+.wordCloudButtonArea a{
+	font-size: 20px;
+	color: #fff;
+    background-color: #428bca;
+}
+.wordCloudButtonArea a:hover{
+	color: #fff;
+	text-decoration: none;
 }
