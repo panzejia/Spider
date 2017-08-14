@@ -79,7 +79,7 @@ public class UserController {
         //验证是否登录成功
         if(currentUser.isAuthenticated()){
             System.out.println("用户[" + username + "]登录认证通过（这里可进行一些认证通过后的系统参数初始化操作）");
-            return "forward:index.html";
+            return "index";
         }else{
             token.clear();
             return InternalResourceViewResolver.FORWARD_URL_PREFIX + "/";

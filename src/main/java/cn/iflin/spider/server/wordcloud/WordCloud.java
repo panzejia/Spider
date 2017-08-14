@@ -36,11 +36,11 @@ import cn.iflin.spider.model.WordModel;
 public class WordCloud {
 
 	public static void main(String[] args) throws IOException {
-//		ArrayList<WordModel> wordList = getTF(
-//				"中新网3月12日电 据中国中国中国中国中国中国中国中国中国中国政府网消息，3月12日上午10时15分，李克强总理参加完政协闭幕会后来到国务院应急指挥中心，与前方中国搜救船长通话，了解马航MH370失联客机搜救最新进展情况。李克强要求各有关部门调集一切可能力量，加大搜救密度和力度，不放弃任何一线希望。 ");
-		// for (WordModel word : wordList) {
-		// System.out.println(word.getWord() + " " + word.getWordFrequency());
-		// }
+		ArrayList<WordModel> wordList = getTF(
+				"中新网3月12日电 据中国政府网消息，3月12日上午10时15分，李克强总理参加完政协闭幕会后来到国务院应急指挥中心，与前方中国搜救船长通话，了解马航MH370失联客机搜救最新进展情况。李克强要求各有关部门调集一切可能力量，加大搜救密度和力度，不放弃任何一线希望。 ","1");
+//		 for (WordModel word : wordList) {
+//		 System.out.println(word.getWord() + " " + word.getWordFrequency());
+//		 }
 //		class SortByFre implements Comparator {
 //			public int compare(Object o1, Object o2) {
 //				WordModel s1 = (WordModel) o1;
@@ -53,6 +53,7 @@ public class WordCloud {
 //		for (WordModel word : wordList) {
 //			System.out.println(word.getWord() + "    " + word.getWordFrequency());
 //		}
+//		System.out.println("总共："+wordList.size());
 	}
 
 	/**
@@ -96,7 +97,7 @@ public class WordCloud {
 		ArrayList<WordModel> wordList = new ArrayList<WordModel>();
 		File file = new File("C:\\Spider\\WordCloud_Lucene\\"+articleId);
 		deleteDir(file);
-		Analyzer analyzer = new IKAnalyzer();
+		Analyzer analyzer = new IKAnalyzer(true);//智能分词模式，如果构造函数参数为false，那么使用最细粒度分词。
 		IndexWriterConfig configfile = new IndexWriterConfig(Version.LUCENE_47, analyzer);// 创建索引的配置信息
 		Directory fileindex;
 		fileindex = FSDirectory.open(file);

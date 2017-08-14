@@ -41,7 +41,7 @@
         <div class="form-group">
              <button class="btn btn-primary form-control" type="submit">登录</button>
              <a style="float:left" href="index.html">返回主页</a>
-             <a style="float:right" href="register">还没有账号？</a>
+             <a style="float:right" href="about.htm">关于</a>
         </div>
         
     </form>

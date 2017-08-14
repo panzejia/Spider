@@ -24,19 +24,6 @@ public class PageController {
 		return "spider/SpiderTaskDetail";
 	}
 
-	@RequestMapping("")
-	public String index1(Model model) {
-		ArrayList<TaskModel> taskList = TaskSqlConfiguration.getTaskName();
-		model.addAttribute("spiders", taskList);
-		return "forward:index.jsp";
-	}
-
-	@RequestMapping("index.html")
-	public String index2(Model model) {
-		ArrayList<TaskModel> taskList = TaskSqlConfiguration.getTaskName();
-		model.addAttribute("spiders", taskList);
-		return "forward:index.jsp";
-	}
 
 	@RequestMapping("getSpiderList")
 	public String getSpiderList(Model model) {

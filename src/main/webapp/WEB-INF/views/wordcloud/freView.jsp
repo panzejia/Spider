@@ -1,20 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
 	<ol class="breadcrumb">
 		<li><a href="index.html">Home</a></li>
 		<li><a href="#" onclick="doWordCloud()">词云</a></li>
 		<li class="active">词频排序</li>
 	</ol>
+	<div class="row" >
+		<svg ></svg>
+	</div>
 	<div class="row">
 		<div class="col-md-12">
+			
+			<ul class="nav nav-pills">
+				<li class="active"><a href="#" onclick="wordCloud('${articleId}');">查看云图</a></li>
+			</ul>
 			<div class="btn-group pull-right" id="templatemo_sort_btn">
 				<button type="button" class="btn btn-default">Sort by</button>
 				<button type="button" class="btn btn-default dropdown-toggle"
@@ -60,6 +60,3 @@
 			</ul>
 		</div>
 	</div>
-	
-</body>
-</html>

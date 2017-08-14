@@ -79,7 +79,7 @@ public class SpiderInfoController {
 	@RequestMapping(value = "/delTask", method = RequestMethod.GET)
 	public String delTask(@RequestParam("taskId") String taskId) {
 		TaskSqlConfiguration.delTaskInfo(taskId);
-		return "forward:index.html";
+		return "index";
 	}
 
 	// 獲取任務詳情
@@ -140,6 +140,6 @@ public class SpiderInfoController {
 	@RequestMapping(value = "/delArticle", method = RequestMethod.GET)
 	public String delArticle(@RequestParam("articleId") String articleId, Model model) {
 		ArticleSqlConfiguration.delArticleInfo(articleId);
-		return "forward:index.html";
+		return "index";
 	}
 }
