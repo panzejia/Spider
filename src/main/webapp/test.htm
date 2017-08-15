@@ -13,15 +13,22 @@
 <script src="js/wordcloud/d3.layout.cloud.js"></script>
 <script src="js/wordcloud/wordCloud.js"></script>
 <script src="js/admin/jquery.min.js"></script>
+<script>
+function draw() {
+	$("#wordcloudRead").removeAttr("hidden"); 
 
+}
+</script>
 </head>
 <body>
-<canvas ></canvas>
+<div id="wordcloudRead" style="width:300px;height:300;margin:0 auto" hidden>
+		<svg ></svg>
+	</div>
 <form id="wordForm" class="resultrightcenter">
 	<textarea autocomplete="off" class="textareastyle" name="articleId" id="articleId" type="text"></textarea>
 	<input class="button inputbutton" type="button" onclick="wordCloud('1');" value="提交">
 </form>
-<a href="#" onclick="wordCloud('1');">提交</a>
+<a href="#" onclick="draw()">提交</a>
 <script type="text/javascript">
 </script>
 </body>

@@ -30,28 +30,56 @@ public class WordCloudController {
 		ArrayList<WordModel> wordList = WordCloud.getWordFre(article.getContent(), articleId);
 		model.addAttribute("wordList", wordList);
 		model.addAttribute("total", wordList.size());
-		model.addAttribute("articleId", articleId);
+		model.addAttribute("data", articleId);
+		model.addAttribute("tag", "wordCloudBySql");
 		return "wordcloud/freView";
 	}
 
-	@RequestMapping(value = "/getWordFreTemp", method = RequestMethod.GET)
+	@RequestMapping(value = "/getWordFreTemp", method = RequestMethod.POST)
 	public String getWordFreTemp(@RequestParam("content") String content, Model model) {
 		ArrayList<WordModel> wordList = WordCloud.getWordFre(content, "temp");
+		model.addAttribute("data", content);
 		model.addAttribute("wordList", wordList);
 		model.addAttribute("total", wordList.size());
+		model.addAttribute("tag", "wordCloudByUser");
 		return "wordcloud/freView";
 	}
 
 	@RequestMapping(value = "/getWordCloudDraw", method = RequestMethod.POST)
-	public void getWordCloud(HttpServletRequest request, HttpServletResponse response,@RequestParam("articleId") String articleId) {
-		System.out.println(articleId);
+	public void getWordCloudDraw(HttpServletRequest request, HttpServletResponse response,@RequestParam("articleId") String articleId) {
 		ArticleModel article = ArticleSqlConfiguration.getArticleInfo(articleId);
 		ArrayList<WordModel> wordList = WordCloud.getWordFre(article.getContent(), articleId);
 		String[] data = new String[20];
 		WordModel word;
-		for (int i = 0; i < 20; i++) {
-			word=wordList.get(i);
-			data[i] = word.getWord();
+		if(wordList.size()>20){
+			for (int i = 0; i < 20; i++) {
+				word=wordList.get(i);
+				data[i] = word.getWord();
+			}
+		}else{
+			for (int i = 0; i < wordList.size(); i++) {
+				word=wordList.get(i);
+				data[i] = word.getWord();
+			}
+		}
+		
+		ResponseJsonUtils.json(response, data);  
+	}
+	@RequestMapping(value = "/getWordCloudDrawByUser", method = RequestMethod.POST)
+	public void getWordCloudDrawByUser(HttpServletRequest request, HttpServletResponse response,@RequestParam("content") String content) {
+		ArrayList<WordModel> wordList = WordCloud.getWordFre(content, "temp");
+		String[] data = new String[20];
+		WordModel word;
+		if(wordList.size()>20){
+			for (int i = 0; i < 20; i++) {
+				word=wordList.get(i);
+				data[i] = word.getWord();
+			}
+		}else{
+			for (int i = 0; i < wordList.size(); i++) {
+				word=wordList.get(i);
+				data[i] = word.getWord();
+			}
 		}
 		ResponseJsonUtils.json(response, data);  
 	}

@@ -2,7 +2,11 @@
 Spider System-- Beijing Normal University, Zhuhai
 
 # 2017/8/15
-词云V1.1 -- 新增根据数据库文章内容进行制作云词
+1. 词云V1.2新增自定义内容进行制作词云
+2. 修复已知bug
+
+# 2017/8/14
+词云V1.1 -- 新增根据数据库文章内容进行制作词云
 
 # 2017/8/13
 1. 修改词云在建立索引时因建立文件夹而出现的BUG
@@ -20,22 +24,13 @@ Spider System-- Beijing Normal University, Zhuhai
 2. 对已爬取的文章可进行预览。
 
 # 2017/7/26
-1. 實現在maven中搭建爬蟲平臺
-2. 整合了所有流程，可走完一個流程
-3. 使用了Quartz 完成對爬蟲的控制
+1. 实现在maven中搭建爬虫平台
+2. 整合了所有流程，可走完自动爬虫流程
+3. 使用了Quartz 完成对自动爬虫的控制
 
-# 2017/7/26
-1. 實現在maven中搭建爬蟲平臺
-2. 整合了所有流程，可走完一個流程
-3. 使用了Quartz 完成對爬蟲的控制
-
-# 2017/7/26
-1. 實現在maven中搭建爬蟲平臺
-2. 整合了所有流程，可走完一個流程
-3. 使用了Quartz 完成對爬蟲的控制
-
-后台管理面板采用模板之家：http://demo.cssmoban.com/cssthemes2/tpmo_415_dashboard/index.html<br>
-爬虫框架采用WebMagic<br>
-系统使用Spring MVC框架<br>
-登陆使用Shiro框架<br>
-词云显示使用开源 D3-Cloud
+后台管理面板采用<a href="http://demo.cssmoban.com/cssthemes2/tpmo_415_dashboard/index.html">模板之家</a><br>
+爬虫采用WebMagic框架<br>
+系统采用Spring MVC框架<br>
+登陆采用Shiro框架<br>
+词云标签显示采用开源 D3-Cloud<br>
+定时调度器采用Quartz框架<br>

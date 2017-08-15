@@ -14,8 +14,10 @@
 	</ol>
 	<div class="row" style="margin:0 auto">
 		<h4 class="margin-bottom-15">自定义查询词频</h4>
-		<textarea autocomplete="off" style="width:100%;height:100px;" name="wordCloudContent" id="wordCloudContent" type="text" placeholder="输入要计算的内容"></textarea>
-		<div class="wordCloudButtonArea"><a class="wordCloudButton" href="#" onclick="doWordCloudTemp(wordCloudContent)">点击计算</i></a>
+		<form id="WordCloudByUser">
+			<textarea autocomplete="off" style="width:100%;height:100px;" name="content" id="content" type="text" placeholder="输入要计算的内容"></textarea>
+			<div class="wordCloudButtonArea"><a class="wordCloudButton" href="#" onclick="doWordCloudTemp()">点击计算</a></div>
+		</form>
 	</div>
 	<div class="row">
 		<div class="col-md-12">

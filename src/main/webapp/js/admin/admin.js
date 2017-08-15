@@ -122,9 +122,20 @@ function doWordCloudByArticle(articleId){
 	sendRequest(url);
 }
 //自定义文章词云
-function doWordCloudTemp(wordCloudContent){
-	var url = "getWordFreTemp?content=" + $(wordCloudContent).val();
-	sendRequest(url);
+function doWordCloudTemp(){
+	$.ajax({
+		type : "POST",
+		dataType : "html",
+		url : "getWordFreTemp",
+		data : $('#WordCloudByUser').serialize(),
+		success : function(data) {
+			var strresult = data;
+			document.getElementById("content").innerHTML = strresult;
+		},
+		error : function(data) {
+			alert("保存失败");
+		}
+	});
 }
 
 // 修改任务状态

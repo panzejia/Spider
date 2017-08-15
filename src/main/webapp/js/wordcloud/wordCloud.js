@@ -1,5 +1,6 @@
 var fill = d3.scale.category20();
 function draw(words) {
+	$("#wordcloudRead").removeAttr("hidden"); 
 	d3.select("svg").attr("width", 300).attr("height", 300)
 			.attr("style", "").append("g").attr(
 					"transform", "translate(150,150)").selectAll("text").data(
@@ -60,7 +61,7 @@ function doWordCloudDraw(wordcloud) {
 	.start();
 }
 
-function wordCloud(articleId) {
+function wordCloudBySql(articleId) {
 	var id = articleId;
 	$.ajax({
 		type : "POST",
@@ -68,6 +69,26 @@ function wordCloud(articleId) {
 		url : "getWordCloudDraw",
 		data : {
 			"articleId":id
+		},
+		success : function(data) {
+			var strresult = data;
+			console.log(strresult);
+			doWordCloudDraw(strresult);
+		},
+		error : function(data) {
+			console.log(data);
+			alert("保存失败");
+		}
+	})
+}
+function wordCloudByUser(content){
+	var data = content;
+	$.ajax({
+		type : "POST",
+		dataType : "json",
+		url : "getWordCloudDrawByUser",
+		data : {
+			"content":content
 		},
 		success : function(data) {
 			var strresult = data;

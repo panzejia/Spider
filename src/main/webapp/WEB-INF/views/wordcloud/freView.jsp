@@ -6,14 +6,13 @@
 		<li><a href="#" onclick="doWordCloud()">词云</a></li>
 		<li class="active">词频排序</li>
 	</ol>
-	<div class="row" >
+	<div id="wordcloudRead" style="width:300px;height:300;margin:0 auto" hidden>
 		<svg ></svg>
 	</div>
 	<div class="row">
 		<div class="col-md-12">
-			
 			<ul class="nav nav-pills">
-				<li class="active"><a href="#" onclick="wordCloud('${articleId}');">查看云图</a></li>
+				<li class="active"><a href="#" onclick="${tag}('${data}');">查看云图</a></li>
 			</ul>
 			<div class="btn-group pull-right" id="templatemo_sort_btn">
 				<button type="button" class="btn btn-default">Sort by</button>
