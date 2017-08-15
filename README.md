@@ -1,5 +1,6 @@
 # Spider
 Spider System-- Beijing Normal University, Zhuhai
+若是在使用过程中有发现任何问题，可联系 panzejia@iflin.cn 我将立即回复您，一起将该项目做的更好。
 
 # 2017/8/15
 1. 词云V1.2新增自定义内容进行制作词云
@@ -34,3 +35,4 @@ Spider System-- Beijing Normal University, Zhuhai
 登陆采用Shiro框架<br>
 词云标签显示采用开源 D3-Cloud<br>
 定时调度器采用Quartz框架<br>
+项目数据库结构语句在resources中
