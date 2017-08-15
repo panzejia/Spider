@@ -1,6 +1,7 @@
 # Spider
-Spider System-- Beijing Normal University, Zhuhai
-若是在使用过程中有发现任何问题，可联系 panzejia@iflin.cn 我将立即回复您，一起将该项目做的更好。
+Spider System-- Beijing Normal University, Zhuhai<br>
+使用说明 http://ktbl.iflin.cn/spider/about.htm <br>
+若是在使用过程中有发现任何问题，可邮箱联系 panzejia@iflin.cn 我将立即回复您，一起将该项目做的更好。
 
 # 2017/8/15
 1. 词云V1.2新增自定义内容进行制作词云
@@ -29,10 +30,11 @@ Spider System-- Beijing Normal University, Zhuhai
 2. 整合了所有流程，可走完自动爬虫流程
 3. 使用了Quartz 完成对自动爬虫的控制
 
-后台管理面板采用<a href="http://demo.cssmoban.com/cssthemes2/tpmo_415_dashboard/index.html">模板之家</a><br>
-爬虫采用WebMagic框架<br>
-系统采用Spring MVC框架<br>
-登陆采用Shiro框架<br>
+后台管理面板采用 <a href="http://demo.cssmoban.com/cssthemes2/tpmo_415_dashboard/index.html">模板之家</a><br>
+爬虫采用 WebMagic框架<br>
+系统采用 Spring MVC框架<br>
+登陆采用 Shiro框架<br>
+词频计算基于 Lucene<br>
 词云标签显示采用开源 D3-Cloud<br>
-定时调度器采用Quartz框架<br>
-项目数据库结构语句在resources中
+定时调度器采用 Quartz框架<br>
+项目所需数据库结构sql语句在resources中
