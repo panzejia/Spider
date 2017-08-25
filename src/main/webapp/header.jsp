@@ -1,62 +1,12 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><![endif]-->
 <title>iFlin爬虫控制终端</title>
-<meta name="keywords" content="" />
-<meta name="description" content="" />
-<meta name="viewport" content="width=device-width">
-<link rel="stylesheet" href="css/admin/css/templatemo_main.css">
-<link rel="stylesheet" href="css/admin/css/admin.css">
-<script src="js/admin/jquery.min.js"></script>
-<script src="js/admin/bootstrap.min.js"></script>
-<script src="js/admin/Chart.min.js"></script>
-<script src="js/admin/templatemo_script.js"></script>
-<script src="js/admin/admin.js"></script>
-<script src="js/wordcloud/d3.js"></script>
-<script src="js/wordcloud/d3.layout.cloud.js"></script>
-<script src="js/wordcloud/wordCloud.js"></script>
-<script src="js/echarts.js"></script>
-<script type="text/javascript">
-	// 基于准备好的dom，初始化echarts实例
-	var myChart = echarts.init(document.getElementById('echarts'));
-
-	// 指定图表的配置项和数据
-	var option = {
-		color : [ '#3398DB' ],
-		tooltip : {
-			trigger : 'axis',
-			axisPointer : { // 坐标轴指示器，坐标轴触发有效
-				type : 'shadow' // 默认为直线，可选为：'line' | 'shadow'
-			}
-		},
-		grid : {
-			left : '3%',
-			right : '4%',
-			bottom : '3%',
-			containLabel : true
-		},
-		xAxis : [ {
-			type : 'category',
-			data : [ '广东社科规划网', '中国高校社会科学信息网', ],
-			axisTick : {
-				alignWithLabel : true
-			}
-		} ],
-		yAxis : [ {
-			type : 'value'
-		} ],
-		series : [ {
-			type : 'bar',
-			barWidth : '60%',
-			data : [ 10, 52 ]
-		} ]
-	};
-
-	// 使用刚指定的配置项和数据显示图表。
-	myChart.setOption(option);
-</script>
 </head>
 <body>
 	<div class="navbar navbar-inverse" role="navigation">
@@ -81,6 +31,8 @@
 				<li id="spiderList"><a href="javascript:;"
 					onclick="getSpiderList()"><i class="fa fa-database"></i>爬虫</a></li>
 				<li id=""><a href="javascript:;"><i class="fa fa-cubes"></i>数据分析</a></li>
+				<li id="english"><a href="javascript:;" onclick="getEnglish()"><i class="fa fa-users"></i><span
+						class="badge pull-right">NEW</span>英语词频</a></li>
 				<li id="wordCloud"><a href="javascript:;" onclick="doWordCloud()"><i class="fa fa-users"></i><span
 						class="badge pull-right">NEW</span>词云</a></li>
 				<li id="setter"><a href="javascript:;"
@@ -90,3 +42,5 @@
 			</ul>
 		</div>
 		<!--/.navbar-collapse -->
+</body>
+</html>

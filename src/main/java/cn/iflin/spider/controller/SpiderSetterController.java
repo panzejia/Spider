@@ -20,11 +20,7 @@ import cn.iflin.spider.server.configuration.Parser.UrlParser;
  */
 @Controller
 public class SpiderSetterController {
-	// 獲取設置主頁面
-	@RequestMapping("getSetter")
-	public String getSetterPage() {
-		return "setter";
-	}
+	
 
 	// 獲取過濾詞匯頁面
 	@RequestMapping("getWordSetterPage")

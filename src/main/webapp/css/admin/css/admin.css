@@ -81,14 +81,24 @@
 }
 /**词云区域*/
 .wordCloudButtonArea{
-	width:10%;
+	float:left;
 }
-.wordCloudButtonArea a{
-	font-size: 20px;
-	color: #fff;
-    background-color: #428bca;
+.wordCloudButtonArea .btn-download {
+  margin: 25px 5px 0px;
+  font-weight: 700;
+  padding: 15px 55px;
+  color: #fff;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  background: #0aabe1;
+  border-radius: 2px;
+  -webkit-transition: .3s ease;
+     -moz-transition: .3s ease;
+      -ms-transition: .3s ease;
+       -o-transition: .3s ease;
+          transition: .3s ease;
 }
-.wordCloudButtonArea a:hover{
-	color: #fff;
-	text-decoration: none;
+.wordCloudButtonArea .btn-download:hover {
+  background: #ff7f66;
 }

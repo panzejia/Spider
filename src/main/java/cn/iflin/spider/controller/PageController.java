@@ -10,10 +10,34 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import cn.iflin.spider.model.TaskModel;
+import cn.iflin.spider.server.configuration.ArticleSqlConfiguration;
 import cn.iflin.spider.server.configuration.TaskSqlConfiguration;
 
 @Controller
 public class PageController {
+	@RequestMapping("/index.html")
+	public String getIndex(Model model) {
+		ArrayList<TaskModel> taskList = TaskSqlConfiguration.getTask();
+		model.addAttribute("spiders", taskList);
+		return "index";
+	}
+	
+	@RequestMapping("setter.html")
+	public String getSetterPage() {
+		return "setter";
+	}
+	@RequestMapping("/wordcloud.html")
+	public String getTaskDetailPage(Model model) {
+		model.addAttribute("articles", ArticleSqlConfiguration.getAllArticle());
+		return "wordcloud/articleList";
+	}
+	@RequestMapping("spider.html")
+	public String getSpiderList(Model model) {
+		ArrayList<TaskModel> taskList = TaskSqlConfiguration.getTask();
+		model.addAttribute("spiders", taskList);
+		return "spiderList";
+	}
+	
 	@RequestMapping("/addTask")
 	public String getAddTaskPage() {
 		return "spider/SpiderAddTask";
@@ -25,12 +49,6 @@ public class PageController {
 	}
 
 
-	@RequestMapping("getSpiderList")
-	public String getSpiderList(Model model) {
-		ArrayList<TaskModel> taskList = TaskSqlConfiguration.getTask();
-		model.addAttribute("spiders", taskList);
-		return "spiderList";
-	}
 
 	@RequestMapping(value = "/getChangePage", method = RequestMethod.GET)
 	public String changePage(@RequestParam("taskId") String taskId, Model model) {

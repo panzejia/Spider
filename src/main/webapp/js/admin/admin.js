@@ -107,27 +107,62 @@ function processSetterResponse() {
 		}
 	}
 }
-//获取词云文章列表页面
-function doWordCloud(){
-	var url = "getWordCloud";
+
+//获取计算英语词频页面
+function getEnglish() {
+	var url = "english.html";
+	$("#english").addClass("active")
+	$("#wordCloud").removeClass("active")
+	$("#spiderList").removeClass("active")
+	$("#home").removeClass("active")
+	$("#setter").removeClass("active")
+	sendRequest(url);
+}
+
+//输入英文文章计算词频
+function getEnglishWords(content,englishClass){
+	$.ajax({
+		type : "POST",
+		dataType : "html",
+		url : "getEnglishFreTemp",
+		data : {
+			"content":$(content).val(),
+			"englishClass" : englishClass,
+		},
+		success : function(data) {
+			var strresult = data;
+			document.getElementById("content").innerHTML = strresult;
+		},
+		error : function(data) {
+			alert("保存失败");
+		}
+	});
+}
+
+// 获取词云文章列表页面
+function doWordCloud() {
+	var url = "wordcloud.html";
 	$("#wordCloud").addClass("active")
 	$("#spiderList").removeClass("active")
 	$("#home").removeClass("active")
 	$("#setter").removeClass("active")
 	sendRequest(url);
 }
-//获取词云
-function doWordCloudByArticle(articleId){
+// 获取词云
+function doWordCloudByArticle(articleId) {
 	var url = "getWordFre?articleId=" + articleId;
 	sendRequest(url);
 }
-//自定义文章词云
-function doWordCloudTemp(){
+// 自定义文章词云$('#WordCloudByUser').serialize(),
+function doWordCloudTemp(content,tag) {
 	$.ajax({
 		type : "POST",
 		dataType : "html",
 		url : "getWordFreTemp",
-		data : $('#WordCloudByUser').serialize(),
+		data : {
+			"content":$(content).val(),
+			"tag" : tag,
+		},
 		success : function(data) {
 			var strresult = data;
 			document.getElementById("content").innerHTML = strresult;
@@ -143,8 +178,8 @@ function changeTaskStatus(taskId, status) {
 	var url = "changeTaskStatus?taskId=" + taskId + "&status=" + status;
 	sendRequest(url);
 }
-//獲取關於界面
-function getAboutPage(){
+// 獲取關於界面
+function getAboutPage() {
 	var url = "getAboutPage";
 	sendRequest(url);
 }
@@ -191,7 +226,7 @@ function doSaveWord(tag) {
 }
 // 获取爬虫列表
 function getSpiderList() {
-	var url = "getSpiderList";
+	var url = "spider.html";
 	$("#spiderList").addClass("active")
 	$("#setter").removeClass("active")
 	$("#home").removeClass("active")
@@ -220,17 +255,18 @@ function getArticleInfo(articleId) {
 	sendRequest(url);
 }
 // 获取预览页面
-function doPreview(articleUrl,cssSeletor,xpath){ 
+function doPreview(articleUrl, cssSeletor, xpath) {
 	createXMLHttpRequest();
-	var url =$(articleUrl).val();
-	if(cssSeletor=="body"){
-		url = "getPageCode?url="+url+"&cssSeletor="+cssSeletor+"&xpath="+xpath;
+	var url = $(articleUrl).val();
+	if (cssSeletor == "body") {
+		url = "getPageCode?url=" + url + "&cssSeletor=" + cssSeletor
+				+ "&xpath=" + xpath;
 		window.open(url, '_blank');
 		return;
 	}
-	var css =$(cssSeletor).val();
-	var xpath1 =$(xpath).val();
-	url = "getPageCode?url="+url+"&cssSeletor="+css+"&xpath="+xpath1;
+	var css = $(cssSeletor).val();
+	var xpath1 = $(xpath).val();
+	url = "getPageCode?url=" + url + "&cssSeletor=" + css + "&xpath=" + xpath1;
 	window.open(url, '_blank');
 }
 

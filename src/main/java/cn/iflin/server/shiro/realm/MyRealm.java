@@ -77,11 +77,11 @@ public class MyRealm extends AuthorizingRealm {
             simpleAuthorInfo.addRole("admin");
             //添加权限
             simpleAuthorInfo.addStringPermission("admin:manage");
-            System.out.println("已为用户[jadyer]赋予了[admin]角色和[admin:manage]权限");
+//            System.out.println("已为用户[jadyer]赋予了[admin]角色和[admin:manage]权限");
             return simpleAuthorInfo;
         }
         if(null!=currentUsername && "xuanyu".equals(currentUsername)){
-            System.out.println("当前用户[xuanyu]无授权（不需要为其赋予角色和权限）");
+//            System.out.println("当前用户[xuanyu]无授权（不需要为其赋予角色和权限）");
             return simpleAuthorInfo;
         }
         //若该方法什么都不做直接返回null的话
@@ -100,8 +100,8 @@ public class MyRealm extends AuthorizingRealm {
         //实际上这个authcToken是从LoginController里面currentUser.login(token)传过来的
         //两个token的引用都是一样的，本例中是：org.apache.shiro.authc.UsernamePasswordToken@33799a1e
         UsernamePasswordToken token = (UsernamePasswordToken)authcToken;
-        System.out.print("验证当前Subject时获取到token：");
-        System.out.println(ReflectionToStringBuilder.toString(token, ToStringStyle.MULTI_LINE_STYLE));
+//        System.out.print("验证当前Subject时获取到token：");
+//        System.out.println(ReflectionToStringBuilder.toString(token, ToStringStyle.MULTI_LINE_STYLE));
         //User user = userService.getByUsername(token.getUsername());
         //if(null != user){
         //    String username = user.getUsername();
@@ -134,9 +134,9 @@ public class MyRealm extends AuthorizingRealm {
         Subject currentUser = SecurityUtils.getSubject();
         if(null != currentUser){
             Session session = currentUser.getSession();
-            System.out.println("当前Session超时时间为[" + session.getTimeout() + "]毫秒");
+//            System.out.println("当前Session超时时间为[" + session.getTimeout() + "]毫秒");
             session.setTimeout(1000 * 60 * 60 * 2);
-            System.out.println("修改Session超时时间为[" + session.getTimeout() + "]毫秒");
+//            System.out.println("修改Session超时时间为[" + session.getTimeout() + "]毫秒");
             session.setAttribute("currentUser", value);
         }
     }

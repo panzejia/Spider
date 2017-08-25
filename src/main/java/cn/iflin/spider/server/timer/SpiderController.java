@@ -94,10 +94,17 @@ public class SpiderController extends QuartzJobBean {
 				String articleUrl = newUrlList.pop();
 				if (UrlParser.checkUrl(articleUrl)) {
 					ArticleModel article = ArticlePaperProcessor.getArticle(taskModel, articleUrl);
-					if (TitleParser.projectJudgment(article.getTitle())) {
+					//导航爬取
+					if(taskModel.getSource().equals("管理学院")||taskModel.getSource().equals("北师珠教务处")||taskModel.getSource().equals("IT之家")){
 						ArticleSqlConfiguration.addAticle(article.getTitle(), article.getStarttime(),
 								article.getStoptime(), article.getContent(), article.getContentNoCode(), articleUrl,
 								taskModel.getSource());
+					}else{
+						if (TitleParser.projectJudgment(article.getTitle())) {
+							ArticleSqlConfiguration.addAticle(article.getTitle(), article.getStarttime(),
+									article.getStoptime(), article.getContent(), article.getContentNoCode(), articleUrl,
+									taskModel.getSource());
+						}
 					}
 				}
 			}
@@ -105,7 +112,8 @@ public class SpiderController extends QuartzJobBean {
 		}
 		System.out.println("下次運行" + sf.format(date));
 	}
-
+	
+	
 	public static void main(String[] args) {
 
 		ArrayList<TaskModel> taskList = TaskSqlConfiguration.getTask();

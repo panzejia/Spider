@@ -18,16 +18,12 @@ import cn.iflin.spider.server.wordcloud.WordCloud;
 
 @Controller
 public class WordCloudController {
-	@RequestMapping("/getWordCloud")
-	public String getTaskDetailPage(Model model) {
-		model.addAttribute("articles", ArticleSqlConfiguration.getAllArticle());
-		return "wordcloud/articleList";
-	}
+	
 
 	@RequestMapping(value = "/getWordFre", method = RequestMethod.GET)
 	public String getWordFre(@RequestParam("articleId") String articleId, Model model) {
 		ArticleModel article = ArticleSqlConfiguration.getArticleInfo(articleId);
-		ArrayList<WordModel> wordList = WordCloud.getWordFre(article.getContent(), articleId);
+		ArrayList<WordModel> wordList = WordCloud.getWordFre(article.getContent(), articleId,"chinese","");
 		model.addAttribute("wordList", wordList);
 		model.addAttribute("total", wordList.size());
 		model.addAttribute("data", articleId);
@@ -36,8 +32,8 @@ public class WordCloudController {
 	}
 
 	@RequestMapping(value = "/getWordFreTemp", method = RequestMethod.POST)
-	public String getWordFreTemp(@RequestParam("content") String content, Model model) {
-		ArrayList<WordModel> wordList = WordCloud.getWordFre(content, "temp");
+	public String getWordFreTemp(@RequestParam("content") String content,@RequestParam("tag") String tag, Model model) {
+		ArrayList<WordModel> wordList = WordCloud.getWordFre(content, "temp",tag,"");
 		model.addAttribute("data", content);
 		model.addAttribute("wordList", wordList);
 		model.addAttribute("total", wordList.size());
@@ -48,7 +44,7 @@ public class WordCloudController {
 	@RequestMapping(value = "/getWordCloudDraw", method = RequestMethod.POST)
 	public void getWordCloudDraw(HttpServletRequest request, HttpServletResponse response,@RequestParam("articleId") String articleId) {
 		ArticleModel article = ArticleSqlConfiguration.getArticleInfo(articleId);
-		ArrayList<WordModel> wordList = WordCloud.getWordFre(article.getContent(), articleId);
+		ArrayList<WordModel> wordList = WordCloud.getWordFre(article.getContent(), articleId,"chinese","");
 		String[] data = new String[20];
 		WordModel word;
 		if(wordList.size()>20){
@@ -67,7 +63,7 @@ public class WordCloudController {
 	}
 	@RequestMapping(value = "/getWordCloudDrawByUser", method = RequestMethod.POST)
 	public void getWordCloudDrawByUser(HttpServletRequest request, HttpServletResponse response,@RequestParam("content") String content) {
-		ArrayList<WordModel> wordList = WordCloud.getWordFre(content, "temp");
+		ArrayList<WordModel> wordList = WordCloud.getWordFre(content, "temp","chinese","");
 		String[] data = new String[20];
 		WordModel word;
 		if(wordList.size()>20){
