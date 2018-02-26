@@ -1,7 +1,9 @@
-# Spider
-Spider System-- Beijing Normal University, Zhuhai<br>
-使用说明 http://ktbl.iflin.cn/spider/about.htm <br>
-若是在使用过程中有发现任何问题，可邮箱联系 panzejia@iflin.cn 我将立即回复您，一起将该项目做的更好。
+#20118/2/26
+1.去除词云功能，集成到个人网站中。
+2.仅做后台系统，与前端系统进行拆分
+3.新增数据分析，更多功能待开发
+4.近期将对代码进行重构。
+
 
 # 2017/8/15
 1. 词云V1.2新增自定义内容进行制作词云

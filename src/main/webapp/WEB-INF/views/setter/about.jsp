@@ -6,11 +6,6 @@
 <script src="js/admin/menu.js"></script>
 </head>
 <body>
-				<ol class="breadcrumb">
-					<li><a href="index.html">SpiderPanel</a></li>
-					<li><a href="#"  onclick="getSetterPage()">Setter</a></li>
-					<li class="active">About</li>
-				</ol>
 				<div class="menu"id="menu">
 					<ul>
 						<li><a href="#guide" class="cur">使用説明</a></li>

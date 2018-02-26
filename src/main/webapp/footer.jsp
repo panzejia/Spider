@@ -1,14 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><![endif]-->
-<title>iFlin爬虫控制终端</title>
-</head>
-<body>
+
 		<!-- Modal -->
 		<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog"
 			aria-labelledby="myModalLabel" aria-hidden="true">
@@ -28,7 +21,7 @@
 				</div>
 			</div>
 		</div>
-		<footer class="templatemo-footer">
+		<footer class="templatemo-footer" style="background-color: #4eb4ff; border-color: #4eb4ff; color: #fff;">
 			<div class="templatemo-copyright">
 				<p>
 					Copyright &copy; 2017 <a href="http://www.iflin.cn/"
@@ -37,6 +30,10 @@
 			</div>
 		</footer>
 	</div>
+<script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/templatemo_script.js"></script>
+<script src="${pageContext.request.contextPath}/js/admin/admin.js"></script>
 </body>
 </html>
 

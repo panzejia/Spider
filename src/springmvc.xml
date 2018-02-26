@@ -15,11 +15,11 @@
 		<property name="prefix" value="/WEB-INF/views/"></property>
 		<property name="suffix" value=".jsp"></property>
 	</bean>
-	<!-- 定時器配置開始 -->
-<bean id="spiderJobDetail"
+	<!-- 爬虫定時器配置開始 -->
+	<bean id="spiderJobDetail"
 		class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
 		<property name="jobClass"
-			value="cn.iflin.spider.server.timer.SpiderController" />
+			value="cn.iflin.admin.server.timer.SpiderController" />
 		<property name="jobDataMap">
 			<map>
 				<entry key="hour" value="24" />
@@ -28,22 +28,38 @@
 		</property>
 		<property name="Durability" value="true"/>				
 	</bean>
-	
+	<!-- 建立索引定時器配置開始 -->
+	<!--
+	<bean id="luceneJobDetail"
+		class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+		<property name="jobClass"
+			value="cn.iflin.admin.server.timer.LuceneIndexController" />
+		<property name="Durability" value="true"/>				
+	</bean>
+	 -->
 	<!-- 设定时间 -->
 	<bean id="spiderCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
 	    <property name="jobDetail"  ref="spiderJobDetail"/>
+	    <property name="cronExpression"  value="0 20 18 * * ? "/>
+	</bean>
+	<!--
+	<bean id="luceneCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+	    <property name="jobDetail"  ref="luceneJobDetail"/>
 	    <property name="cronExpression"  value="0 5 21 * * ? "/>
 	</bean>
-	
+	-->
 	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
 	    <property name="jobDetails">
 	        <list>
 	            <ref bean="spiderJobDetail"/>
+	            <!--<ref bean="luceneJobDetail"/>-->
 	        </list>
 	    </property>
+	   
 	    <property name="triggers">
 	        <list>
 	            <ref bean="spiderCronTrigger"/>
+	             <!--<ref bean="luceneCronTrigger"/>-->
 	        </list>
 	    </property>
 	</bean>
@@ -52,7 +68,7 @@
 	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
 	    <!-- 指定Shiro验证用户登录的类为自定义的Realm（若有多个Realm，可用[realms]属性代替） -->
 	    <property name="realm">
-	        <bean class="cn.iflin.server.shiro.realm.MyRealm"/>
+	        <bean class="cn.iflin.admin.server.shiro.realm.MyRealm"/>
 	    </property>
 	    <!--
 	    Shiro默认会使用Servlet容器的Session，此时修改超时时间的话，可以修改web.xml或者这里自定义的MyRealm
@@ -83,13 +99,22 @@
 	    anon：它对应的过滤器里面是空的，什么都没做，另外.do和.jsp后面的*表示参数，比方说[login.jsp?main]这种
 	    authc：该过滤器下的页面必须验证后才能访问，它是内置的org.apache.shiro.web.filter.authc.FormAuthenticationFilter
 	    注意：对于相似的资源，需要将anon的设置放在authc前面，anon才会生效，因为Shiro是从上往下匹配URL的，匹配成功便不再匹配了
+	    /main**           = authc
+	            /admin/list**     = authc,perms[admin:manage]
+	            /user/info-anon** = anon
+	            
+	            
 	    -->
 	    <property name="filterChainDefinitions">
 	        <value>
-	            /main**           = authc
-	            /admin/list**     = authc,perms[admin:manage]
-	            /user/info-anon** = anon
-	            /user/info**      = authc
+	        	/spider**           = authc
+				/setter**           = authc
+				/index**           = authc
+				/getRangeArticles**           = authc
+				/addTask**           = authc
+				/taskDetail**           = authc
+				/usermanager**           = authc
+				/getChangePage**           = authc
 	        </value>
 	    </property>
 	</bean>

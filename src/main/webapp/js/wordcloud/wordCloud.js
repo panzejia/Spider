@@ -1,5 +1,6 @@
 var fill = d3.scale.category20();
 function draw(words) {
+	$("findCloud").attr("hidden"); 
 	$("#wordcloudRead").removeAttr("hidden"); 
 	d3.select("svg").attr("width", 300).attr("height", 300)
 			.attr("style", "").append("g").attr(

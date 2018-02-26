@@ -1,58 +1,3 @@
-var randomScalingFactor = function() {
-	return Math.round(Math.random() * 100)
-};
-var lineChartData = {
-	labels : [ "January", "February", "March", "April", "May", "June", "July" ],
-	datasets : [
-			{
-				label : "My First dataset",
-				fillColor : "rgba(220,220,220,0.2)",
-				strokeColor : "rgba(220,220,220,1)",
-				pointColor : "rgba(220,220,220,1)",
-				pointStrokeColor : "#fff",
-				pointHighlightFill : "#fff",
-				pointHighlightStroke : "rgba(220,220,220,1)",
-				data : [ randomScalingFactor(), randomScalingFactor(),
-						randomScalingFactor(), randomScalingFactor(),
-						randomScalingFactor(), randomScalingFactor(),
-						randomScalingFactor() ]
-			},
-			{
-				label : "My Second dataset",
-				fillColor : "rgba(151,187,205,0.2)",
-				strokeColor : "rgba(151,187,205,1)",
-				pointColor : "rgba(151,187,205,1)",
-				pointStrokeColor : "#fff",
-				pointHighlightFill : "#fff",
-				pointHighlightStroke : "rgba(151,187,205,1)",
-				data : [ randomScalingFactor(), randomScalingFactor(),
-						randomScalingFactor(), randomScalingFactor(),
-						randomScalingFactor(), randomScalingFactor(),
-						randomScalingFactor() ]
-			} ]
-
-}
-
-window.onload = function() {
-	var ctx_line = document.getElementById("templatemo-line-chart").getContext(
-			"2d");
-	window.myLine = new Chart(ctx_line).Line(lineChartData, {
-		responsive : true
-	});
-};
-
-$('#myTab a').click(function(e) {
-	e.preventDefault();
-	$(this).tab('show');
-});
-
-$('#loading-example-btn').click(function() {
-	var btn = $(this);
-	btn.button('loading');
-	// $.ajax(...).always(function () {
-	// btn.button('reset');
-	// });
-});
 
 /** 自定义内容从此开始 */
 var XMLHttpReq = false;
@@ -108,74 +53,9 @@ function processSetterResponse() {
 	}
 }
 
-//获取计算英语词频页面
-function getEnglish() {
-	var url = "english.html";
-	$("#english").addClass("active")
-	$("#wordCloud").removeClass("active")
-	$("#spiderList").removeClass("active")
-	$("#home").removeClass("active")
-	$("#setter").removeClass("active")
-	sendRequest(url);
-}
-
-//输入英文文章计算词频
-function getEnglishWords(content,englishClass){
-	$.ajax({
-		type : "POST",
-		dataType : "html",
-		url : "getEnglishFreTemp",
-		data : {
-			"content":$(content).val(),
-			"englishClass" : englishClass,
-		},
-		success : function(data) {
-			var strresult = data;
-			document.getElementById("content").innerHTML = strresult;
-		},
-		error : function(data) {
-			alert("保存失败");
-		}
-	});
-}
-
-// 获取词云文章列表页面
-function doWordCloud() {
-	var url = "wordcloud.html";
-	$("#wordCloud").addClass("active")
-	$("#spiderList").removeClass("active")
-	$("#home").removeClass("active")
-	$("#setter").removeClass("active")
-	sendRequest(url);
-}
-// 获取词云
-function doWordCloudByArticle(articleId) {
-	var url = "getWordFre?articleId=" + articleId;
-	sendRequest(url);
-}
-// 自定义文章词云$('#WordCloudByUser').serialize(),
-function doWordCloudTemp(content,tag) {
-	$.ajax({
-		type : "POST",
-		dataType : "html",
-		url : "getWordFreTemp",
-		data : {
-			"content":$(content).val(),
-			"tag" : tag,
-		},
-		success : function(data) {
-			var strresult = data;
-			document.getElementById("content").innerHTML = strresult;
-		},
-		error : function(data) {
-			alert("保存失败");
-		}
-	});
-}
-
 // 修改任务状态
 function changeTaskStatus(taskId, status) {
-	var url = "changeTaskStatus?taskId=" + taskId + "&status=" + status;
+	var url = "spider/changeTaskStatus?taskId=" + taskId + "&status=" + status;
 	sendRequest(url);
 }
 // 獲取關於界面
@@ -194,17 +74,17 @@ function getSetterPage() {
 }
 // 获取词汇设置界面
 function getWordSetterPage() {
-	var url = "getWordSetterPage";
+	var url = "setter/getWordSetterPage";
 	sendRequest(url);
 }
 // 获取停用词界面
 function getStopWordView() {
-	var url = "getStopWordView";
+	var url = "setter/getStopWordView";
 	sendSetterRequest(url);
 }
 // 获取选择词词界面
 function getSelectWordView() {
-	var url = "getSelectWordView";
+	var url = "setter/getSelectWordView";
 	sendSetterRequest(url);
 }
 // 保存词汇
@@ -235,55 +115,56 @@ function getSpiderList() {
 }
 // 获取添加爬虫页面
 function getRight() {
-	var url = "addTask";
+	var url = "spider/addTask";
 	sendRequest(url);
 }
 
 // 获取某个爬虫信息
 function getTaskName(taskId) {
-	var url = "getDetail?taskId=" + taskId;
+	var url = "spider/getDetail?taskId=" + taskId;
 	sendRequest(url);
 }
 // 通过来源名称获取爬虫已爬文章
 function getSpiderArticle(source) {
-	var url = "getSpiderArticle?source=" + source;
+	var url = "spider/getSpiderArticle?source=" + source;
 	sendRequest(url);
 }
 // 获取爬虫已爬文章内容
 function getArticleInfo(articleId) {
-	var url = "getArticleInfo?articleId=" + articleId;
+	var url = "spider/getArticleInfo?articleId=" + articleId;
 	sendRequest(url);
 }
 // 获取预览页面
 function doPreview(articleUrl, cssSeletor, xpath) {
-	createXMLHttpRequest();
 	var url = $(articleUrl).val();
 	if (cssSeletor == "body") {
-		url = "getPageCode?url=" + url + "&cssSeletor=" + cssSeletor
+		url = "spider/getPageCode?url=" + url + "&cssSeletor=" + cssSeletor
 				+ "&xpath=" + xpath;
-		window.open(url, '_blank');
+		window.open(url);
 		return;
 	}
 	var css = $(cssSeletor).val();
 	var xpath1 = $(xpath).val();
-	url = "getPageCode?url=" + url + "&cssSeletor=" + css + "&xpath=" + xpath1;
-	window.open(url, '_blank');
+	url = "spider/getPageCode?url=" + url + "&cssSeletor=" + css + "&xpath=" + xpath1;
+	window.open(url);
 }
 
 // 保存爬虫信息
 function doSave() {
 	$.ajax({
 		type : "POST",
-		dataType : "html",
-		url : "doSave",
+		dataType : "json",
+		url : "spider/doSave",
 		data : $('#addForm').serialize(),
 		success : function(data) {
-			var strresult = data;
-			document.getElementById("content").innerHTML = strresult;
+			//var result=eval("("+data+")");
+			console.log(data);
+			alert(data.info);
+			window.location.href="spider"; 
 		},
 		error : function(data) {
-			alert("保存失败");
-			sendRequest("addTask");
+			alert(data.info);
+			window.location.href="spider"; 
 		}
 	});
 }
@@ -292,7 +173,7 @@ function doChangeInfo(taskId) {
 	$.ajax({
 		type : "POST",
 		dataType : "html",
-		url : "changeInfo",
+		url : "spider/changeInfo",
 		data : $('#changeForm').serialize(),
 		success : function(data) {
 			var strresult = data;
@@ -302,8 +183,30 @@ function doChangeInfo(taskId) {
 			alert("保存失败");
 		}
 	});
+	
 }
 function doChangePage(taskId) {
-	var url = "getChangePage?taskId=" + taskId;
+	var url = "spider/getChangePage?taskId=" + taskId;
 	sendRequest(url);
+}
+
+/**
+ * 删除文章
+ */
+function doDelArticle(articleId) {
+	$.ajax({
+		type : "POST",
+		dataType : "json",
+		url : "article/delete",
+		data : articleId,
+		success : function(data) {
+			//var result=eval("("+data+")");
+			alert(data.info);
+			window.location.href="article/inquire?range=全国&sort=StopTime"; 
+		},
+		error : function(data) {
+			alert(data.info);
+			window.location.href="article/inquire?range=全国&sort=StopTime"; 
+		}
+	});
 }

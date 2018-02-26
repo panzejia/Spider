@@ -1,73 +1,41 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]> <html class="lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]> <html class="lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en"> <!--<![endif]-->
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>课题部落--测试版--用户登陆</title>
-    <link rel="stylesheet" type="text/css" href="css/admin/css/login_1.css"/>
-	<link rel="stylesheet" type="text/css" href="css/admin/css/login_2.css"/>
-    <style>
-        body {
-            background-color: #eee;
-        }
-
-        form {
-            max-width: 330px;
-            margin: 0 auto;
-            padding: 40px 15px;
-        }
-    </style>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>课题部落--后台管理系统</title>
+  <link rel="stylesheet" href="css/admin/login.css">
+  <!--[if lt IE 9]><script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 </head>
 <body>
-<div class="container">
-    <form name="regForm" action="${pageContext.request.contextPath}/login" method="post">
-        <div class="form-group" style="text-align: center;">
-            <h1 style="font-size: 2rem;">课题部落</h1>
-			<h2 style="font-size: 1.7rem;">登录</h2>
-        </div>
-        <div class="form-group">
-            <div class="input-group">
-                <span class="input-group-addon">邮箱</span>
-                <input autocomplete="off" type="text" class="form-control" name="username" id="username" placeholder="邮箱" />
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="input-group">
-                <span class="input-group-addon">密码</span>
-                <input  type="password" class="form-control" name="password" id="password" placeholder="密码" />
-            </div>
-        </div>
-        <div class="form-group">
-             <button class="btn btn-primary form-control" type="submit">登录</button>
-             <a style="float:left" href="index.html">返回主页</a>
-             <a style="float:right" href="about.htm">关于</a>
-        </div>
-        
-    </form>
-</div>
-<script type="application/javascript">
-    setTimeout(function() {
-        document.getElementById("email").focus();
-    }, 10);
-</script>
-<!--[if IE]>
-<style>
-    .container {
-        display: none;
-    }
-    .not-support {
-        padding: 30px;
-        margin: 30px;
-    }
-</style>
-<div class="not-support">
-    系统不支持此版本的浏览器，Windows XP或Vista用户请下载
-    <a href="http://dl.google.com/release2/h8vnfiy7pvn3lxy9ehfsaxlrnnukgff8jnodrp0y21vrlem4x71lor5zzkliyh8fv3sryayu5uk5zi20ep7dwfnwr143dzxqijv/49.0.2623.112_chrome_installer.exe">Google Chrome v49</a>，
-    Windows 7及以上用户请下载
-    <a href="https://dl.google.com/release2/11sx7qq3lmncwfwkxnj8si8rq6me2v498iogaovom8062r5g3bwn5s6l64nt9yzjvua2kxq5sdnwbgsab2b569l5ey529uyw5nkv/51.0.2704.84_chrome_installer.exe">Google Chrome v51 32位</a>或
-    <a href="https://dl.google.com/release2/rkoforcsrkbke4r1b5s6gdj2a2aonn3m3l2d2l1j4pwgv2lcpjro3vz0ymb6snqur8lfocj6f8erh4ad91qndxeegy5chbkt167/51.0.2704.84_chrome_installer_win64.exe">Google Chrome v51 64位</a>。
-</div>
-<![endif]-->
+  <section class="container" style="text-align: center;">
+	<img src="images/logo/logo_onlyWord.png" width="270" height="129">
+
+    <div class="login">
+      <h1>课题部落--后台管理系统</h1>
+      <form name="regForm" action="user/login" method="post">
+        <p><input type="text" name="username" value="" id="username" placeholder="Username or Email"></p>
+        <p><input type="password" name="password" id="password" value="" placeholder="Password"></p>
+        <p class="submit"><input type="submit" name="commit" value="登录"></p>
+      </form>
+    </div>
+
+    <div class="login-help">
+      <p>Forgot your password? <a href="index.html">Click here to reset it</a>.</p>
+    </div>
+  </section>
+
+  <section class="about">
+    <p class="about-links">
+      <a href="https://www.iktbl.com" target="_parent">课题部落</a>
+    </p>
+    <p class="about-author">
+      &copy; 2017&ndash;2018 <a href="http://thibaut.me" target="_blank">iktbl.com</a>
+  </section>
 </body>
 </html>
