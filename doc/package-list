@@ -1,0 +1,6 @@
+cn.iflin.spider
+cn.iflin.spider.model
+cn.iflin.spider.model.factory
+cn.iflin.spider.parser
+cn.iflin.spider.sql
+cn.iflin.spider.util
